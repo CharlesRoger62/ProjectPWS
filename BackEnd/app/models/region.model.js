@@ -2,16 +2,18 @@ const mongoose = require('mongoose');
 const departement = require('./Departement.model');
 
 const region = new mongoose.Schema({
-    departement_data :[{
-        type:Departement,
-    }],
+
+    //la région possede des données pour un jour donné
+    jour :{
+        type:String, isRequired=true
+    },
+ 
+    region_num:{
+        type:Number, isRequired=true
+    },
 
     region_libelle:{
         type:String,
-    },
-
-    region_num:{
-        type:Number,
     },
 
     //population de référence par raport à la classe d'âge
@@ -53,7 +55,20 @@ const region = new mongoose.Schema({
 
     //10 classes d'age différentes. 0 = toutes
     classe_age:{
-        type:[Classe_Age]
+        type:Number
+    },
+
+    //taux d'incidence
+    tx_inc:{
+        type:mongoose.Decimal128
+    },
+    //taux test positif
+    tx_pos:{
+        type:mongoose.Decimal128
+    },
+    //capacite analytique à calculer
+    tx_an:{
+        type:mongoose.Decimal128
     }
 
 });

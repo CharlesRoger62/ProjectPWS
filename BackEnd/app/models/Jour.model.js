@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
-const Region = require('./Region.model');
-const Classe_age = require('./Classe_Age.model')
 //données pour un jour en france
 const jour = new mongoose.Schema({
-  //données pour les régions
-  region_data :{
-    type:[Region],
-  },
 
   //population de référence par raport à la classe d'âge
   pop_ref :{
@@ -18,7 +12,7 @@ const jour = new mongoose.Schema({
   },
 
   date: {
-    type: String,
+    type: String, isrequired:true
   },
 
   pop_h: {
@@ -55,7 +49,7 @@ const jour = new mongoose.Schema({
 
   //10 classes d'age différentes. 0 = toutes
   classe_age:{
-    type:[Classe_Age]
+    type:Number
   },
 
   //taux d'incidence
@@ -68,7 +62,7 @@ const jour = new mongoose.Schema({
     type:mongoose.Decimal128
   },
   
-  //capacite analytique
+  //capacite analytique doit être calculé
   tx_an:{
     type:mongoose.Decimal128
   }
