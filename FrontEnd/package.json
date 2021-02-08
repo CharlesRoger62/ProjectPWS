@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CharlesRoger62/ProjectPWS.git"
+  },
+  "author": "RBMC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CharlesRoger62/ProjectPWS/issues"
+  },
+  "homepage": "https://github.com/CharlesRoger62/ProjectPWS#readme"
+}

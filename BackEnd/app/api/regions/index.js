@@ -3,7 +3,6 @@ const { Region } = require('../../models');
 
 const router = new Router();
 
-
 router.get('/', (req, res) => {
   Region.find({})
     .then((data) => {
@@ -50,5 +49,6 @@ router.post('/', async (req, res) => {
     }
   }
 });
+
 
 module.exports = router;

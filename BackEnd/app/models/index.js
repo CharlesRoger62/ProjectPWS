@@ -1,7 +1,13 @@
-const Ticket = require('./ticket.model.js');
-const Region = require('./region.model');
+const Mocking = require('./Mocking.model.js');
+const Region = require('./Region.model');
+const Jour = require('./Jour.model');
+const Departement = require('./Departement.model');
+const Semaine = require('./Semaine.model');
 
 module.exports = {
-  Ticket,
+  Mocking,
   Region,
+  Departement,
+  Jour,
+  Semaine
 };
