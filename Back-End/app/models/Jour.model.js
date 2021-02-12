@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 //données pour un jour en france
 const jour = new mongoose.Schema({
 
+  date: {
+    type: String, required:true
+  },
+
   //population de référence par raport à la classe d'âge
   pop_ref :{
     type : Number
@@ -9,10 +13,6 @@ const jour = new mongoose.Schema({
 
   classe_age:{
     type : Number
-  },
-
-  date: {
-    type: String, isrequired:true
   },
 
   pop_h: {
@@ -69,4 +69,4 @@ const jour = new mongoose.Schema({
 
 });
 
-module.exports = Jour = mongoose.model('region', jour);
+module.exports = Jour = mongoose.model('jour', jour);

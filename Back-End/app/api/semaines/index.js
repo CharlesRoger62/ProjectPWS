@@ -1,11 +1,11 @@
 /* eslint-disable linebreak-style */
 const { Router } = require('express');
-const { Jour } = require('../../models');
+const { Semaine } = require('../../models');
 
 const router = new Router();
 
 router.get('/', (req, res) => {
-  Jour.find({})
+  Semaine.find({})
     .then((data) => {
       res.json(data);
     })

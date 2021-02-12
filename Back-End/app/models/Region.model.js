@@ -1,19 +1,18 @@
 const mongoose = require('mongoose');
-const departement = require('./Departement.model');
 
 const region = new mongoose.Schema({
 
     //la région possede des données pour un jour donné
     jour :{
-        type:String, isRequired=true
+        type:String, required:true
     },
  
     region_num:{
-        type:Number, isRequired=true
+        type:Number, required:true
     },
 
     region_libelle:{
-        type:String,
+        type:String, required:true
     },
 
     //population de référence par raport à la classe d'âge

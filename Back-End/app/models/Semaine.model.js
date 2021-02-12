@@ -1,17 +1,17 @@
-
+/* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
-const Jour = require('./Jour.model');
 
-const Semaine = new mongoose.Schema({
+const semaine = new mongoose.Schema({
 
-  name:{
-      type:String, isrequired:true
+  name: {
+    type: String, required: true,
   },
 
-  semaine:{
-    type:[Jour],
-  }
+  semaine: {
+    type: [Object],
+  },
 
 });
 
-module.exports = Semaine = mongoose.model('region', semaine);
+const Semaine = mongoose.model('semaine', semaine);
+module.exports = Semaine;

@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const departement = new mongoose.Schema({
 
     region_num:{
-        type: Number, isRequired:true
+        type: Number, required:true
     },
 
     departement_num :{
-      type: Number, isRequired:true
+      type: Number, required:true
     },
 
     departement_libelle:{
-        type: String, isRequired:true
+        type: String, required:true
     },
 
     //population de référence par raport à la classe d'âge
@@ -44,4 +44,4 @@ const departement = new mongoose.Schema({
 
   });
   
-  module.exports = Departement = mongoose.model('region', departement);
+  module.exports = Departement = mongoose.model('departement', departement);
