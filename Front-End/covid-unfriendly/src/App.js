@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import MapFrance from './component/MapFrance'
-import data from "./d3js/departement.json"
+import data from "./d3js/region.json"
 import { Tooltip } from "redux-tooltip"
 import {useState} from "react"
 
