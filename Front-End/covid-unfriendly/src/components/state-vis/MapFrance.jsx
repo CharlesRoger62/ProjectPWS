@@ -43,7 +43,7 @@ function GeoChart({data}){
             var y = d.clientY;
             div_tooltip.style("top",(y + 20) + 'px');
             div_tooltip.style("left", (x + 20) + 'px');
-            console.warn(div_tooltip.style);
+            //console.warn(div_tooltip.style);
         })
         .on("mouseout", function(d) {
             div_tooltip.style("opacity", 0);
