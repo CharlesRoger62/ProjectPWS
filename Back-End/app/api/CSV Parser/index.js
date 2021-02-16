@@ -96,7 +96,32 @@ const getDataJour = () => {
   });
 };
 
+const getDataRegion = () => {
+  const ti_quot_reg = 'https://static.data.gouv.fr/resources/taux-dincidence-de-lepidemie-de-covid-19/20210215-192011/sp-pe-tb-quot-reg-2021-02-15-19h20.csv';
+  const test_quot_reg = 'https://static.data.gouv.fr/resources/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/20210215-192008/sp-pos-quot-reg-2021-02-15-19h20.csv';
+  let dataset1;
+  let dataset2;
+  const finaldataset = [];
+  return new Promise((resolve, reject) => {
+    parseCsv(ti_quot_reg, ';').then((v) => {
+      dataset1 = v;
+      console.table(dataset1.slice(0, 3));
+      return parseCsv(test_quot_reg, ';');
+    }).then( (v) => {
+      dataset2 = v;
+      console.table(dataset2.slice(0, 3));
+      for (let i = 0; i < dataset1.length; i++) {
+        const row = { ...dataset1[i], ...dataset2[i] };
+        finaldataset.push(row);
+      }
+      console.table(finaldataset.slice(0, 3));
+      resolve();
+    });
+  });
+};
+
 router.get('/', async (req, res) => {
+  getDataRegion().then((value) => res.json('done'));
   /* getDataJour().then(async (value) => {
      for (const tmp of value) {
        const jour = {};
