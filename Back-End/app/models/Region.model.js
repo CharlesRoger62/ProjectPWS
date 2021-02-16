@@ -11,9 +11,9 @@ const region = new mongoose.Schema({
     type: Number, required: true,
   },
 
-  region_libelle: {
+  /*region_libelle: {
     type: String, required: true,
-  },
+  },*/
 
   // population de référence par raport à la classe d'âge
   pop_ref: {

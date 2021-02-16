@@ -1,6 +1,6 @@
 const https = require('https');
 const { Router } = require('express');
-const { Jour } = require('../../models');
+const { Jour, Region } = require('../../models');
 
 const router = new Router();
 
@@ -105,24 +105,71 @@ const getDataRegion = () => {
   return new Promise((resolve, reject) => {
     parseCsv(ti_quot_reg, ';').then((v) => {
       dataset1 = v;
-      console.table(dataset1.slice(0, 3));
+      // console.table(dataset1.slice(dataset1.length - 4, dataset1.length - 1));
       return parseCsv(test_quot_reg, ';');
     }).then( (v) => {
       dataset2 = v;
-      console.table(dataset2.slice(0, 3));
+      // console.table(dataset2.slice(dataset2.length - 4,dataset2.length - 1));
       for (let i = 0; i < dataset1.length; i++) {
         const row = { ...dataset1[i], ...dataset2[i] };
         finaldataset.push(row);
       }
-      console.table(finaldataset.slice(0, 3));
-      resolve();
+      // console.table(finaldataset.slice(finaldataset.length - 4, finaldataset.length - 1));
+      resolve(finaldataset);
     });
   });
 };
 
 router.get('/', async (req, res) => {
-  getDataRegion().then((value) => res.json('done'));
-  /* getDataJour().then(async (value) => {
+  /*
+  getDataRegion().then(async (value) => {
+    for (const tmp of value) {
+      const region = {};
+      region.jour = tmp.jour;
+      region.region_num = tmp.reg;
+      region.pop_ref = tmp['pop'];
+      region.pop_h = tmp.pop_h;
+      region.pop_f = tmp.pop_f;
+      region.nbtest = tmp['T'];
+      region.nbtest_h = tmp['T_h'];
+      region.nbtest_f = tmp['T_f'];
+      region.nbtest_positif = tmp['P'];
+      region.nbtest_positif_h = tmp['P_h'];
+      region.nbtest_positif_f = tmp['P_f'];
+      region.classe_age = tmp['cl_age90'];
+      // (100000 * nombre de cas positif) / Population
+      if (region.nbtest_positif !== -1 && region['pop_ref'] !== -1) {
+        const ti = (100000 * region.nbtest_positif) / Math.round(region['pop_ref']);
+        region.tx_inc = ti;
+      }
+
+      if (region.nbtest == 0) {
+        region.tx_pos = 0;
+      } else {
+        const txpos = region.nbtest_positif / Math.round(region.nbtest);
+        region.tx_pos = txpos;
+      }
+
+      // (100000*nombre de test réalisés)/ Population
+      if (region.nbtest !== -1 && region['pop_ref'] !== -1) {
+        const analytique = (100000 * region.nbtest) / Math.round(region['pop_ref']);
+        region.tx_an = analytique;
+      }
+      const regionModel = new Region(region);
+      await regionModel.save((err) => {
+        if (err) {
+          console.log('Ooops, something gone wrong');
+          console.log(err.message);
+          console.log(regionModel);
+        } else {
+          console.log('Data has been saved! ');
+        }
+      });
+    }
+
+    res.status(201).json('done');
+  });
+  getDataJour().then(async (value) => {
      for (const tmp of value) {
        const jour = {};
        jour.date = tmp.jour;
@@ -141,7 +188,7 @@ router.get('/', async (req, res) => {
          jour.tx_pos = tmp['tx_pos'];
        }
        // (100000*nombre de test réalisés)/ Population
-       if (jour.nbtest !== -1 && jour['pop'] !== -1) {
+       if (jour.nbtest !== -1 && jour['pop_ref'] !== -1) {
          const analytique = (100000 * jour.nbtest) / Math.round(jour['pop_ref']);
          jour.tx_an = analytique;
        }
@@ -159,5 +206,6 @@ router.get('/', async (req, res) => {
      res.status(201).json('done');
    });
    */
+  res.json('done');
 });
 module.exports = router;
