@@ -9,6 +9,14 @@ import data from "./d3js/region.json"
 import Toggle_button_theme from './components/Toggle_button_theme';
 import { Tooltip } from "redux-tooltip"
 import {useState} from "react"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+//import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -26,7 +34,19 @@ function App() {
         <Toggle_button_theme theme={theme} toggleTheme={toggleTheme} />
         <div id="map">
           <h1>Bienvenue sur covid unfriendly</h1>
-          <MapFrance data={data}/>
+          <Router>
+            <Switch>
+            <Route exact path="/">
+              <MapFrance data={data}/>
+            </Route>
+            <Route exact path="/regions">
+
+            </Route>
+            <Route exact path="/departements">
+              <DepartementDataTab />
+            </Route>
+            </Switch>
+          </Router>
         </div>
       </body>
       </>
