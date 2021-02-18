@@ -30,14 +30,14 @@ function GeoChart({data}){
          .attr("class","region")
          .attr("d", feature => pathGenerator(feature))
          .on("click", function(d) {
-            console.warn(d.explicitOriginalTarget.__data__.properties.nom)
+            console.warn(d.target.__data__.properties.nom)
             
          })
          .on("mouseover", function(d) {
             div_tooltip.transition()        
                 .duration(200)
                 .style("opacity", .9);      
-            div_tooltip.html("Région : " + d.explicitOriginalTarget.__data__.properties.nom)
+            div_tooltip.html("Région : " + d.target.__data__.properties.nom)
             var x = d.clientX;
             
             var y = d.clientY;
