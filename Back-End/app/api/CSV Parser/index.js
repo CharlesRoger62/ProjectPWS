@@ -1,6 +1,6 @@
 const https = require('https');
 const { Router } = require('express');
-const { Jour, Region } = require('../../models');
+const { Jour, Region, Departement} = require('../../models');
 
 const router = new Router();
 
@@ -107,7 +107,7 @@ const getDataRegion = () => {
       dataset1 = v;
       // console.table(dataset1.slice(dataset1.length - 4, dataset1.length - 1));
       return parseCsv(test_quot_reg, ';');
-    }).then( (v) => {
+    }).then((v) => {
       dataset2 = v;
       // console.table(dataset2.slice(dataset2.length - 4,dataset2.length - 1));
       for (let i = 0; i < dataset1.length; i++) {
@@ -115,6 +115,56 @@ const getDataRegion = () => {
         finaldataset.push(row);
       }
       // console.table(finaldataset.slice(finaldataset.length - 4, finaldataset.length - 1));
+      resolve(finaldataset);
+    });
+  });
+};
+
+const getDataDepartement = () => {
+  const pos_quot_dep = 'https://static.data.gouv.fr/resources/donnees-relatives-aux-resultats-des-tests-virologiques-covid-19/20210217-192003/sp-pos-quot-dep-2021-02-17-19h20.csv';
+  const indic_quot_dep = 'https://static.data.gouv.fr/resources/indicateurs-de-suivi-de-lepidemie-de-covid-19/20210217-162548/table-indicateurs-open-data-dep-serie.csv'
+  let dataset1;
+  let dataset2;
+  const finaldataset = [];
+  return new Promise((resolve, reject) => {
+    parseCsv(pos_quot_dep, ';').then((v) => {
+      //dataset1 = v;
+      // console.table(v.slice(v.length - 4, v.length - 1));
+      dataset1 = v.filter(elem =>{
+        return elem['cl_age90'] === '0';
+      });
+      // console.table(dataset1.slice(dataset1.length - 4, dataset1.length - 1));
+      return parseCsv(indic_quot_dep, ',');
+    }).then((v) => {
+      dataset2 = v;
+      // console.table(dataset2.slice(dataset2.length - 4, dataset2.length - 1));
+      dataset2.forEach((value) => {
+        const tmp = dataset1.find((elem) => {
+          return elem.jour == value['"extract_date"'].substr(1, value['"extract_date"'].length - 2) && elem.dep == value['"departement"'].substr(1, value['"departement"'].length - 2);
+        });
+        // console.log(value);
+        // console.log(tmp);
+        const row = {};
+        if( tmp !== undefined){
+          // console.log(tmp)
+
+          row.region_num = value['"region"'];
+          row.departement_num = tmp.dep;
+          row.departement_libelle = value['"libelle_dep"'];
+          row.jour = tmp.jour;
+          row.pop_ref = tmp['pop'];
+          row.nbtest = tmp['T'];
+          row.nbtest_positif = tmp['P'];
+          row.tx_inc = value['"tx_incid"'];
+          row.tx_pos = value['"tx_pos"'];
+          const analytique = (100000 * tmp['T']) / Math.round(tmp['pop']);
+          row.tx_an = analytique;
+          // console.log(row);
+        }
+        if(Object.keys(row).length > 0) {
+          finaldataset.push(row);
+        }
+      })
       resolve(finaldataset);
     });
   });
@@ -206,6 +256,24 @@ router.get('/', async (req, res) => {
      res.status(201).json('done');
    });
    */
+/*
+  getDataDepartement().then(async(value) => {
+    // console.table(value.slice(value.length - 4, value.length - 1))
+    for (const tmp of value) {
+      tmp.departement_libelle = tmp.departement_libelle.substr(1, tmp.departement_libelle.length - 2)
+      const DepModel = new Departement(tmp);
+      await DepModel.save((err) => {
+        if (err) {
+          console.log('Ooops, something gone wrong');
+          console.log(err.message);
+          console.log(DepModel);
+        } else {
+          // console.log('Data has been saved! ');
+        }
+      });
+    }
+
+  }); */
   res.json('done');
 });
 module.exports = router;
