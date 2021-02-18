@@ -5,13 +5,13 @@ import {useState} from "react";
 export const RowData = () => {
     return(
         <>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>d</td>
+            <td>d</td>
+            <td>d</td>
+            <td>d</td>
+            <td>d</td>
+            <td>d</td>
+            <td>d</td>
         </>
     );
 }

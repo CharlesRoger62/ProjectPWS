@@ -6,7 +6,13 @@ import {WeeksSubHeader} from "./weeks-sub-header";
 export const Rows = () => {
     return( 
         <>
-            <WeeksSubHeader />
+            <WeeksSubHeader count={1} />
+            <tr>
+                <RowData />
+            </tr>
+            <tr>
+                <RowData />
+            </tr>
             <tr>
                 <RowData />
             </tr>

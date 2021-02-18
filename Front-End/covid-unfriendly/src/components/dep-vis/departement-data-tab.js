@@ -5,12 +5,13 @@ import {DepartementName} from "./departement-name";
 import {Rows} from "./rows";
 import {Retour} from "./Retour";
 import PropTypes from 'prop-types';
+import './departement-data-tab.scss';
 
-export const DepartementDataTab = (name) => {
+export const DepartementDataTab = (props) => {
     return(
     <>
-        <DepartementName name={name} />
-        <table>
+        <DepartementName name={props.name} />
+        <table className="theme-light">
             <thead>
                 <TabHeader />
             </thead>
@@ -20,7 +21,7 @@ export const DepartementDataTab = (name) => {
         </table>
         <Retour />
     </>
-    )
+    );
 
     DepartementDataTab.propTypes = {
         name: PropTypes.string,
@@ -30,5 +31,6 @@ export const DepartementDataTab = (name) => {
         name : ""
     };
 }
+
 
 
