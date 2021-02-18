@@ -1,14 +1,14 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.css';
-import { useDarkMode } from './useDarkMode';
-import { lightTheme, darkTheme } from './theme';
+import { useDarkMode } from './components/Theme/useDarkMode';
+import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
-import MapFrance from './component/MapFrance'
+import MapFrance from './components/state-vis/MapFrance';
 import data from "./d3js/region.json"
-import Toggle_button_theme from './components/Toggle_button_theme';
-import { Tooltip } from "redux-tooltip"
-import {useState} from "react"
+import Toggle_button_theme from './components/Theme/Toggle_button_theme';
+import { Tooltip } from "redux-tooltip";
+import {useState} from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,12 +28,11 @@ function App() {
 
   return (
     <ThemeProvider theme={themeMode}>
-      <>
       <body>
         <GlobalStyles />
-        <Toggle_button_theme theme={theme} toggleTheme={toggleTheme} />
         <div id="map">
-          <h1>Bienvenue sur covid unfriendly</h1>
+          <h1 className="title">Bienvenue sur covid unfriendly</h1>
+          <Toggle_button_theme theme={theme} toggleTheme={toggleTheme} />
           <Router>
             <Switch>
             <Route exact path="/">
@@ -43,13 +42,12 @@ function App() {
 
             </Route>
             <Route exact path="/departements">
-              <DepartementDataTab />
+              
             </Route>
             </Switch>
           </Router>
         </div>
       </body>
-      </>
     </ThemeProvider>
   );
 };
