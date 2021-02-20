@@ -23,7 +23,7 @@ function App() {
   if (!componentMounted) {
     return <div />
   };
-  
+
 
   //Faire les Link avec des routes rest exemple : /regions#Ile de France ou /departements#Ain grace à un map sur les region puis departements
 
@@ -44,7 +44,7 @@ function App() {
               <Map/>
             </Route>
             <Route exact path="/departements">
-              <DepartementDataTab />
+              <DepartementDataTab libelle={"Ain"}/>
             </Route>
             </Switch>
           </Router>
