@@ -1,7 +1,6 @@
 import React, {useRef, useEffect, useState} from "react";
 import {select, geoPath, geoMercator,geoConicConformal } from "d3";
-import useResizeObserver from "./useResizeObserver.js";
-
+import france from "../../d3js/region.json"
 import {
    BrowserRouter as Router,
    Switch,
@@ -11,15 +10,10 @@ import {
    useHistory
  } from "react-router-dom";
 
-
-
-function GeoChart({data}){
+function GeoChart(){
    const svgRef = useRef();
    const wrapperRef = useRef();
-   const dimensions = useResizeObserver(wrapperRef);
    let history = useHistory();
-   const [coordinates, setCoordinates] = useState();
-   const [wantLocation, setWantLocation] = useState(false);
 
    const [opacity, setOpacity] = useState(0);
    const [top, setTop] = useState(-500);
@@ -35,27 +29,21 @@ function GeoChart({data}){
         }
    }
 
-   const geo = () => {
-      if(navigator.geolocation){
-         navigator.geolocation.getCurrentPosition((position) => {
-            setCoordinates([position.coords.latitude, position.coords.longitude]);
-         });
-         //setWantLocation(true)
-         
-      } else {
-         alert("La géolocalisation n'est pas supportée par le navigateur")
-      }
+   let location = useLocation();    
+   let data = null
+   if(location.pathname === '/'){
+      data = france
+   }
+   else{
+      const regionFolder = require.context('../../d3js/RegionsMap',true);
+      data = regionFolder('./'+location.state.regionName+'.json');
    }
 
    useEffect(() => {
 
       const svg = select(svgRef.current);
-      console.warn(svg)
       const projection = geoConicConformal()
-      //.center([2.454071, 46.279229])
       .fitSize([500,500],data)
-      //.scale(2600)
-      //.translate([500 / 2, 500 / 2]);
 
       const pathGenerator = geoPath().projection(projection);
 
@@ -65,14 +53,16 @@ function GeoChart({data}){
          .attr("class","region")
          .attr("d", feature => pathGenerator(feature))
          .on("click", function(d) {
-            console.warn(d.target.__data__.properties.nom)
-            setOpacity(0);
-            setTextTooltip("");
+            
+            if(location.pathname === '/'){
+               setOpacity(0);
+               setTextTooltip("");
 
-            history.push({
-               pathname: '/regions',
-               state: {regionName : d.target.__data__.properties.nom}
-               });
+               history.push({
+                  pathname: '/regions',
+                  state: {regionName : d.target.__data__.properties.nom}
+                  });
+            }
          })
          .on("mouseover", function(d) {
             setOpacity(0.9);
@@ -84,22 +74,9 @@ function GeoChart({data}){
         })
         .on("mouseout", function(d) {
             setOpacity(0);
-            setTextTooltip("");
-                
+            setTextTooltip("");  
         });
-
-        if(wantLocation){
-         svg.append("g")
-         .selectAll("g")
-         .enter()
-            .append("g")
-            .style("fill","red")
-            .attr("transform", function(d) { return "translate(" + projection(coordinates) + ")"; })
-            .append("circle") 
-            .attr("r", 50)
-        }
-
-   } , [data, dimensions,wantLocation,coordinates,history]);
+   } , [history,data,location]);
 
 
    return (
@@ -114,5 +91,3 @@ function GeoChart({data}){
 }
 
 export default GeoChart;
-
-//<button class="location" onClick={geo()}>Localisez-moi</button>
