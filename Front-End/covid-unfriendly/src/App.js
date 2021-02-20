@@ -8,6 +8,7 @@ import Map from './components/state-vis/Map';
 import Toggle_button_theme from './components/Theme/Toggle_button_theme';
 import { Tooltip } from "redux-tooltip";
 import {useState} from "react";
+import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
 import {
   BrowserRouter as Router,
   Switch,
@@ -41,7 +42,7 @@ function App() {
               <Map/>
             </Route>
             <Route exact path="/departements">
-              
+              <DepartementDataTab />
             </Route>
             </Switch>
           </Router>
