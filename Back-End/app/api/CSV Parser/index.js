@@ -256,24 +256,24 @@ router.get('/', async (req, res) => {
      res.status(201).json('done');
    });
    */
-/*
-  getDataDepartement().then(async(value) => {
-    // console.table(value.slice(value.length - 4, value.length - 1))
-    for (const tmp of value) {
-      tmp.departement_libelle = tmp.departement_libelle.substr(1, tmp.departement_libelle.length - 2)
-      const DepModel = new Departement(tmp);
-      await DepModel.save((err) => {
-        if (err) {
-          console.log('Ooops, something gone wrong');
-          console.log(err.message);
-          console.log(DepModel);
-        } else {
-          // console.log('Data has been saved! ');
-        }
-      });
-    }
+  /*
+    getDataDepartement().then(async(value) => {
+      console.log(value.length)
+      // console.table(value.slice(value.length - 4, value.length - 1)      /*for (const tmp of value) {
+        tmp.departement_libelle = tmp.departement_libelle.substr(1, tmp.departement_libelle.length - 2)
+        const DepModel = new Departement(tmp);
+        await DepModel.save((err) => {
+          if (err) {
+            console.log('Ooops, something gone wrong');
+            console.log(err.message);
+            console.log(DepModel);
+          } else {
+            // console.log('Data has been saved! ');
+          }
+        });
+      }
 
-  }); */
-  res.json('done');
+    }); */
+    res.json('done');
 });
 module.exports = router;
