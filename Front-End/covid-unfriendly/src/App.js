@@ -15,6 +15,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {BarPlot} from "./components/barplot/barplot";
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,7 +37,10 @@ function App() {
           <Router>
             <Switch>
             <Route exact path="/">
-              <Map/>
+              <div style={{display: "inline-flex"}}>
+                <Map/>
+                <BarPlot/>
+              </div>
             </Route>
             <Route exact path="/regions">
               <Map/>

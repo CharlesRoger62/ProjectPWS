@@ -29,7 +29,7 @@ function GeoChart(){
         }
    }
 
-   let location = useLocation();    
+   let location = useLocation();
    let data = null
    if(location.pathname === '/'){
       data = france
@@ -53,7 +53,7 @@ function GeoChart(){
          .attr("class","region")
          .attr("d", feature => pathGenerator(feature))
          .on("click", function(d) {
-            
+
             if(location.pathname === '/'){
                setOpacity(0);
                setTextTooltip("");
@@ -74,7 +74,7 @@ function GeoChart(){
         })
         .on("mouseout", function(d) {
             setOpacity(0);
-            setTextTooltip("");  
+            setTextTooltip("");
         });
    } , [history,data,location]);
 
@@ -83,7 +83,7 @@ function GeoChart(){
       <Router>
          <div ref={wrapperRef} style={{marginBottom: "2rem"}}>
             <svg ref={svgRef}></svg>
-            <div class="tooltip" style={styleTooltip.container}>{textTooltip}</div>
+            <div className="tooltip" style={styleTooltip.container}>{textTooltip}</div>
          </div>
       </Router>
    )
