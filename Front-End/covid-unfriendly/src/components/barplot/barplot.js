@@ -29,6 +29,12 @@ export const BarPlot = () => {
             {Country:'France' , Value:2162 },
             {Country:'United Kingdom' , Value:1214}
         ];
+        const url = 'http://localhost:9428/api/jours'
+       fetch(url)
+           .then(res => res.json())
+           .then( v => {
+           console.table(v.slice(0, 5));
+       });
 
         // Add X axis
         let x = d3.scaleLinear()
