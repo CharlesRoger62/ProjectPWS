@@ -5,6 +5,7 @@ import { useDarkMode } from './components/Theme/useDarkMode';
 import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
 import MapFrance from './components/state-vis/MapFrance';
+import MapRegion from './components/state-vis/MapRegion';
 import data from "./d3js/region.json"
 import Toggle_button_theme from './components/Theme/Toggle_button_theme';
 import { Tooltip } from "redux-tooltip";
@@ -16,7 +17,7 @@ import {
   Link
 } from "react-router-dom";
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -39,7 +40,7 @@ function App() {
               <MapFrance data={data}/>
             </Route>
             <Route exact path="/regions">
-
+              <MapRegion/>
             </Route>
             <Route exact path="/departements">
               
