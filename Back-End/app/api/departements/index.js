@@ -1,17 +1,12 @@
 /* eslint-disable linebreak-style */
-const { Router } = require('express');
-const { Departement } = require('../../models');
+var express = require('express');
+var router = express.Router();
+const departement_controller = require('../../controllers/Departement.controller');
 
-const router = new Router();
+router.get('/departements', departement_controller.findAll);
 
-router.get('/', (req, res) => {
-  Departement.find({})
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      console.log('error: ', error);
-    });
-});
+router.get('/departement/bynum/:departement_num',departement_controller.findAllWithId);
+
+router.get('/departement/bylib/:departement_libelle',departement_controller.findAllWithLabel);
 
 module.exports = router;
