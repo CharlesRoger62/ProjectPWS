@@ -1,13 +1,11 @@
 const db = require("../models");
 const Jour = db.Jour;
 
+//Jour is State data for a Day 
 
 // Retrieve all Jour from the database.
-exports.findAll = (req, res) => {
-    const date = req.query.date;
-    var condition = date ? { date: { $regex: new RegExp(date), $options: "i" } } : {};
-  
-    Jour.find(condition)
+exports.findAll = async (req, res) => {
+    await Jour.find()
       .then(data => {
         res.send(data);
       })
@@ -20,10 +18,9 @@ exports.findAll = (req, res) => {
   };
 
 // Find a single Jour with a date
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
     const date = req.params.date;
-  
-    Jour.findOne({date:date})
+    await Jour.findOne({date:date})
       .then(data => {
         if (!data)
           res.status(404).send({ message: "Not found Jour with date " + date });
@@ -36,10 +33,10 @@ exports.findOne = (req, res) => {
       });
   };
 
-// Find all published Jour
-exports.findAllForClasse = (req, res) => {
+// Find all Jour with specific age class
+exports.findAllForClasse = async (req, res) => {
     const classe_age=req.query.classe_age
-    Jour.find({ classe_age })
+    await Jour.find({ classe_age })
       .then(data => {
         res.send(data);
       })
