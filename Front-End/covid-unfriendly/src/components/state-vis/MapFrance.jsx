@@ -1,6 +1,15 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import {select, geoPath, geoMercator,geoConicConformal } from "d3";
 import useResizeObserver from "./useResizeObserver.js";
+
+import {
+   BrowserRouter as Router,
+   Switch,
+   Route,
+   Link,
+   useLocation,
+   useHistory
+ } from "react-router-dom";
 
 
 
@@ -8,10 +17,40 @@ function GeoChart({data}){
    const svgRef = useRef();
    const wrapperRef = useRef();
    const dimensions = useResizeObserver(wrapperRef);
+   let history = useHistory();
+   const [coordinates, setCoordinates] = useState();
+   const [wantLocation, setWantLocation] = useState(false);
+
+   const [opacity, setOpacity] = useState(0);
+   const [top, setTop] = useState(-500);
+   const [left, setLeft] = useState(-500);
+
+   const [textTooltip, setTextTooltip] = useState("");
+
+   let styleTooltip = {
+        container: {
+            opacity: opacity,
+            top: top,
+            left: left
+        }
+   }
+
+   const geo = () => {
+      if(navigator.geolocation){
+         navigator.geolocation.getCurrentPosition((position) => {
+            setCoordinates([position.coords.latitude, position.coords.longitude]);
+         });
+         //setWantLocation(true)
+         
+      } else {
+         alert("La géolocalisation n'est pas supportée par le navigateur")
+      }
+   }
 
    useEffect(() => {
-      const svg = select(svgRef.current);
 
+      const svg = select(svgRef.current);
+      console.warn(svg)
       const projection = geoConicConformal()
       //.center([2.454071, 46.279229])
       .fitSize([500,500],data)
@@ -20,10 +59,6 @@ function GeoChart({data}){
 
       const pathGenerator = geoPath().projection(projection);
 
-      var div_tooltip = select("body").append("div")   
-      .attr("class", "tooltip")               
-      .style("opacity", 0);
-
       svg.selectAll("path")
          .data(data.features)
          .join("path")
@@ -31,35 +66,53 @@ function GeoChart({data}){
          .attr("d", feature => pathGenerator(feature))
          .on("click", function(d) {
             console.warn(d.target.__data__.properties.nom)
-            
+            setOpacity(0);
+            setTextTooltip("");
+
+            history.push({
+               pathname: '/regions',
+               state: {regionName : d.target.__data__.properties.nom}
+               });
          })
          .on("mouseover", function(d) {
-            div_tooltip.transition()        
-                .duration(200)
-                .style("opacity", .9);      
-            div_tooltip.html("Région : " + d.target.__data__.properties.nom)
+            setOpacity(0.9);
+            setTextTooltip("Région : " + d.target.__data__.properties.nom);
             var x = d.clientX;
-            
             var y = d.clientY;
-            div_tooltip.style("top",(y + 20) + 'px');
-            div_tooltip.style("left", (x + 20) + 'px');
-            //console.warn(div_tooltip.style);
+            setLeft(x+20);
+            setTop(y+20);
         })
         .on("mouseout", function(d) {
-            div_tooltip.style("opacity", 0);
-            div_tooltip.html("")
+            setOpacity(0);
+            setTextTooltip("");
                 
-        });;
+        });
 
-   } , [data, dimensions]);
+        if(wantLocation){
+         svg.append("g")
+         .selectAll("g")
+         .enter()
+            .append("g")
+            .style("fill","red")
+            .attr("transform", function(d) { return "translate(" + projection(coordinates) + ")"; })
+            .append("circle") 
+            .attr("r", 50)
+        }
+
+   } , [data, dimensions,wantLocation,coordinates,history]);
 
 
    return (
-      <div ref={wrapperRef} style={{marginBottom: "2rem"}}>
-         <svg ref={svgRef}></svg>
-      </div>
+      <Router>
+         <div ref={wrapperRef} style={{marginBottom: "2rem"}}>
+            <svg ref={svgRef}></svg>
+            <div class="tooltip" style={styleTooltip.container}>{textTooltip}</div>
+         </div>
+      </Router>
    )
 
 }
 
 export default GeoChart;
+
+//<button class="location" onClick={geo()}>Localisez-moi</button>
