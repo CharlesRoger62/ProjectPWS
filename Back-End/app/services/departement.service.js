@@ -50,3 +50,13 @@ exports.findLastDate = async function (sort, limit) {
     }
 }
 
+exports.findLastDataWithLabel = async function (condition, sort, limit) {
+    try {
+        //console.log(condition);
+        var departements = await Departement.find(condition).sort(sort).limit(limit);
+        return departements;
+    }
+    catch (e) {
+        throw Error("Some error occurred while retrieving Departements with label = "+ condition.departement_libelle + " : " + e.message);
+    }
+}
