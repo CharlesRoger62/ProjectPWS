@@ -35,3 +35,20 @@ exports.findAllWithLabel = async (req, res) => {
         return res.status(400).json({ status: 400, message: e.message });
     }
   };
+
+
+    //retrieve last data from a specific departement data with departement libelle
+exports.findLastDataWithLabel = async (req, res) => {
+  console.log("ca passe")
+  const departement_libelle=req.params.departement_libelle;
+  console.log(req.params)
+  var condition_lib= departement_libelle ? { 'departement_libelle' : departement_libelle } : {};
+  var sort = {'jour' : -1};
+  var limit = 1;
+    try {
+      var departements = await DepartementService.findLastDataWithLabel(condition_lib, sort, limit);
+      return res.status(200).json({ status: 200, data: departements, message: "Succesfully last data Retrieved" });
+  } catch (e) {
+      return res.status(400).json({ status: 400, message: e.message });
+  }
+};
