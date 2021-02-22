@@ -5,9 +5,7 @@ import { useDarkMode } from './components/Theme/useDarkMode';
 import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
-import Toggle_button_theme from './components/Theme/Toggle_button_theme';
-import { Tooltip } from "redux-tooltip";
-import {useState} from "react";
+import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
 import {
   BrowserRouter as Router,
@@ -25,6 +23,9 @@ function App() {
   if (!componentMounted) {
     return <div />
   };
+  
+
+  //Faire les Link avec des routes rest exemple : /regions#Ile de France ou /departements#Ain grace à un map sur les region puis departements
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -32,8 +33,9 @@ function App() {
         <GlobalStyles />
         <div id="map">
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
-          <Toggle_button_theme theme={theme} toggleTheme={toggleTheme} />
+          <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
+          <Link to={"/regions"}>Regions</Link>
             <Switch>
             <Route exact path="/">
               <Map/>

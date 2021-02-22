@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default TexteExplicatif = () =>{
+export const TexteExplicatif = () =>{
     return (
         <p>
             -Le taux d'incidence correspond au nombre de tests positifs pour 100.000 habitants.

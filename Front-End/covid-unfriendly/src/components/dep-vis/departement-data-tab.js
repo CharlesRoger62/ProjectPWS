@@ -7,6 +7,14 @@ import PropTypes from 'prop-types';
 import './departement-data-tab.scss';
 
 export const DepartementDataTab = (props) => {
+    DepartementDataTab.propTypes = {
+        name: PropTypes.string,
+    };
+
+    DepartementDataTab.defaultProps = {
+        name : ""
+    };
+    
     return(
     <>
         <DepartementName name={props.name} />
@@ -22,13 +30,7 @@ export const DepartementDataTab = (props) => {
     </>
     );
 
-    DepartementDataTab.propTypes = {
-        name: PropTypes.string,
-    };
-
-    DepartementDataTab.defaultProps = {
-        name : ""
-    };
+    
 }
 
 
