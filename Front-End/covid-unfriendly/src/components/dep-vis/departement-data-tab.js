@@ -9,9 +9,10 @@ import DepartementDataLoader from "../../api/DepartementDataLoader";
 
 export const DepartementDataTab = (props) => {
     const [data, setData] = useState({});
+
     useEffect(() => {
         setData(DepartementDataLoader(props));
-        console.log("in use effet :"+data);
+        console.log("in use effet :" + data);
       });
 
       DepartementDataTab.propTypes = {

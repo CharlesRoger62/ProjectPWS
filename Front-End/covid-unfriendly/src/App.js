@@ -35,7 +35,7 @@ function App() {
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
-          <Link to={"/regions"}>Regions</Link>
+            <Link to={"/regions"}>Regions</Link>
             <Switch>
             <Route exact path="/">
               <Map/>
