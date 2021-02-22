@@ -3,8 +3,6 @@ const axios = require('axios');
 //from https://reactjsexample.com/simple-and-accessible-loading-indicators-with-react/
 //import { SpinningCircles, useLoading } from '@agney/react-loading';
 
-
-
 const DepartementDataLoader = (props) => {
     /* // code for beautiful loader
     const Content  = () => {
@@ -12,7 +10,7 @@ const DepartementDataLoader = (props) => {
           loading: true,
           indicator: <SpinningCircles width="50" />,
         });
-      
+
         return (
           {// Accessibility props injected to container //}
           <section {...containerProps}>
@@ -25,7 +23,7 @@ const DepartementDataLoader = (props) => {
     }
     catch(e){
       console.log("error", e);
-    };    
+    };
   }
 
   if(props.num !== undefined){
@@ -50,13 +48,11 @@ export const DepartementLastDataLoader = async (props) =>{
     if(props !== undefined){
         let data = {};
         await axios.get("http://localhost:9428/api/servicedepartements/departement/lastdata/" + props)
-            .then((res)=>{
-                data=res.data;
-                console.warn(data);
-            });
+        .then((res)=>{
+            data=res.data;
+            console.warn(data);
+        });
 
         return data;
     }
 }
-
-export default DepartementDataLoader;
