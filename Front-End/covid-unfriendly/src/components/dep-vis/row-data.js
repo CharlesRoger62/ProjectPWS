@@ -7,7 +7,7 @@ export const RowData = (props) => {
         return (
             <>
                 <td>{props.value.date}</td>
-                <td>{props.value. nbtest_positif}</td>
+                <td>{props.value.nbtest_positif}</td>
                 <td>{props.value.nbtest}</td>
                 <td>tranche d'age ...</td>
                 <td>{props.value.tx_pos}</td>
