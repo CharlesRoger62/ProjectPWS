@@ -4,40 +4,27 @@ import {RowData} from "./row-data";
 import {WeeksSubHeader} from "./weeks-sub-header";
 
 export const Rows = (props) => {
-    if(props.data !==undefined){
-        console.log(props.data);
-        let count=1;
-        return( 
-            <>
-                <tr>
-                    
-                </tr>
-                {
-                    props.data.map((value,index) => {
+    /*
+            props.data.map((value,index) => {
                         if(index%7===0){
                             <WeeksSubHeader count={count} />
                             count=count+1;
                         }
-                        <RowData value={value}/>
-                    })
-                }
+    */
+    if(props.data !== undefined){
+        return( 
+            <>
                 <tr>
-                    
-                </tr>
-                <tr>
-                    <RowData />
-                </tr>
-                <tr>
-                    <RowData />
+                    <RowData value={props.data}/>
                 </tr>
             </>
         );
     }
     else {
         return(
-        <>
-            <p>Still Loading</p>
-        </>
+        <tr>
+            <td>Still Loading</td>
+        </tr>
         );
     }
     
