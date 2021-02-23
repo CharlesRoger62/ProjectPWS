@@ -13,8 +13,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
+require('./lib/libs');
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
-//import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -24,18 +25,17 @@ function App() {
     return <div />
   };
 
-
   //Faire les Link avec des routes rest exemple : /regions#Ile de France ou /departements#Ain grace à un map sur les region puis departements
+  //<Link to={"/regions"}>Regions</Link>
 
   return (
     <ThemeProvider theme={themeMode}>
-      <body>
+      <div>
         <GlobalStyles />
         <div id="map">
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
-            <Link to={"/regions"}>Regions</Link>
             <Switch>
             <Route exact path="/">
               <Map/>
@@ -49,7 +49,7 @@ function App() {
             </Switch>
           </Router>
         </div>
-      </body>
+      </div>
     </ThemeProvider>
   );
 };
