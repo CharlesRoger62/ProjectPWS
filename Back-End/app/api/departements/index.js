@@ -1,12 +1,13 @@
 /* eslint-disable linebreak-style */
-var express = require('express');
-var router = express.Router();
-const departement_controller = require('../../controllers/Departement.controller');
+const express = require('express');
 
-router.get('/departements', departement_controller.findAll);
+const router = express.Router();
+const departementController = require('../../controllers/Departement.controller');
 
-router.get('/departement/bynum/:departement_num',departement_controller.findAllWithId);
+router.get('/departements', departementController.findAll);
 
-router.get('/departement/bylib/:departement_libelle',departement_controller.findAllWithLabel);
+router.get('/departement/bynum/:departementNum', departementController.findAllWithId);
+
+router.get('/departement/bylib/:departementLibelle', departementController.findAllWithLabel);
 
 module.exports = router;
