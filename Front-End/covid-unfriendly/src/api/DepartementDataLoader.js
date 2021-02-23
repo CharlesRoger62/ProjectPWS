@@ -1,32 +1,48 @@
 const axios = require('axios');
 
-const DepartementDataLoader = async (props) =>{
-    if(props.libelle !== undefined){
-        let data = {};
-        await axios.get("http://localhost:9428/api/servicedepartements/departement/bylib/" + props.lib)
-        .then((res)=>{
-            data=res.data;
-        });
-        return data;
-    }
+//from https://reactjsexample.com/simple-and-accessible-loading-indicators-with-react/
+//import { SpinningCircles, useLoading } from '@agney/react-loading';
 
-    if(props.num !== undefined){
-        let data = {};
-        await axios.get("http://localhost:9428/api/servicedepartements/departement/bynum/" + props.num)
-        .then((res)=>{
-            data=res.data;
-        });
-        return data;
-    }
 
-    if(props.all === true && props.all !== undefined){
-        let data = {};
-        await axios.get("http://localhost:9428/api/servicedepartements/departements")
-        .then((res)=>{
-            data=res.data;
+
+const DepartementDataLoader = (props) => {
+    /* // code for beautiful loader
+    const Content  = () => {
+        const { containerProps, indicatorEl } = useLoading({
+          loading: true,
+          indicator: <SpinningCircles width="50" />,
         });
-        return data;
+      
+        return (
+          {// Accessibility props injected to container //}
+          <section {...containerProps}>
+            {indicatorEl} {// renders only while loading //}
+          </section>
+        );}*/
+  if(props.libelle !== undefined){
+    try{
+      return axios.get("http://localhost:9428/api/servicedepartements/departement/bylib/" + props.libelle);
     }
+    catch(e){
+      console.log("error", e);
+    };    
+  }
+
+  if(props.num !== undefined){
+    try {
+        return axios.get("http://localhost:9428/api/servicedepartements/departement/bynum/" + props.num);
+    }catch(e){
+      console.log("error",e);
+    }
+  }
+
+  if(props.all === true && props.all !== undefined){
+    try {
+        return axios.get("http://localhost:9428/api/servicedepartements/departements")
+    }catch(e){
+        console.log("error",e);
+    }
+  }
 }
 
 export default DepartementDataLoader;
