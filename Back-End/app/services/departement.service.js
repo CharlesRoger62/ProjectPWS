@@ -53,10 +53,20 @@ exports.findLastDate = async function (sort, limit) {
 exports.findLastDataWithLabel = async function (condition, sort, limit) {
     try {
         //console.log(condition);
-        var departements = await Departement.find(condition).sort(sort).limit(limit);
+        var departements = await Departement.find(condition);
         return departements;
     }
     catch (e) {
         throw Error("Some error occurred while retrieving Departements with label = "+ condition.departement_libelle + " : " + e.message);
+    }
+}
+
+exports.findLastDate = async function (sort, limit) {
+    try {
+        var lastDate = (await Region.find().sort(sort).limit(limit))[0].jour;
+        return lastDate
+    }
+    catch (e) {
+        throw Error("Some error occurred while retrieving Last Date");
     }
 }

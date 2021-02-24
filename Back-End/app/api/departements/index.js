@@ -12,6 +12,6 @@ router.get('/departement/bylib/:departement_libelle', departement_controller.fin
 
 router.get('/departement/lastdata/:region_number',departement_controller.findLastDataWithLabel)
 
-router.get('/departement/lastdata/:departement_libelle',departement_controller.findLastDataWithLabel)
+router.get('/departement/lastdata/:region_number',departement_controller.findLastDataWithLabel)
 
 module.exports = router;
