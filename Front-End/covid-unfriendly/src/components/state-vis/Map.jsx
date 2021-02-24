@@ -11,7 +11,7 @@ import {
  } from "react-router-dom";
 
 function GeoChart({localisation}){
-   
+
    const svgRef = useRef();
    const wrapperRef = useRef();
    let history = useHistory();
@@ -23,6 +23,8 @@ function GeoChart({localisation}){
    const [textTooltip, setTextTooltip] = useState("");
 
 
+   const [covidDataDictionnary, setCovidDataDictionnary] = useState();
+
    let styleTooltip = {
         container: {
             opacity: opacity,
@@ -30,16 +32,33 @@ function GeoChart({localisation}){
             left: left
         }
    }
-   
 
-   let location = useLocation();   
-   const regionFolder = require.context('../../d3js/RegionsMap',true); 
-   let data = location.pathname === '/' ? france : regionFolder(`./${location.state.regionName}.json`); 
+
+   let location = useLocation();
+   const regionFolder = require.context('../../d3js/RegionsMap',true);
+   let data = location.pathname === '/' ? france : regionFolder(`./${location.state.regionName}.json`);
    let covidData = null;
-   let covidDataDictionnary = null;
+
    console.warn("CA PASSSSSE")
 
-   useEffect(() => {
+   useEffect(()=> {
+      let covidDataDictionnary = {};
+      if( location.pathname === '/'){
+         RegionLastDataLoader().then( res => {
+            covidData = res.data;
+            setCovidDataDictionnary(Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x}))))
+           })
+      }
+      else {
+        let region_number = RegionEnum[location.state.regionName];
+        DepartementLastDataLoader(region_number).then( res => {
+           covidData = res.data;
+           covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.departement_num]: x})))
+        })
+      }
+   },[covidData])
+
+   useEffect((covidDataDictionnary) => {
       const svg = select(svgRef.current);
 
       if(location.pathname === '/'){
@@ -57,7 +76,7 @@ function GeoChart({localisation}){
          .attr("class","region")
          .attr("d", feature => pathGenerator(feature))
          .on("click", function(d) {
-            
+
             if(location.pathname === '/'){
                setOpacity(0);
                setTextTooltip("");
@@ -70,23 +89,12 @@ function GeoChart({localisation}){
             });
          })
          .on("mouseover", function(d) {
-            if( location.pathname === '/'){
-               RegionLastDataLoader().then( res => {
-                  console.warn("OUIIIII")
-                  covidData = res.data;
-                  covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x})));
-                  setTextTooltip(`Région : ${d.target.__data__.properties.nom}  Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
-               })
+            if(location.pathname === '/regions'){
+               setTextTooltip(`Département : ${d.target.__data__.properties.nom} '\n' Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
             }
-            else {
-              let region_number = RegionEnum[location.state.regionName];
-              DepartementLastDataLoader(region_number).then( res => {
-                  covidData = res.data;
-                  covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.departement_num]: x})))
-                  if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
-                     setTextTooltip(`Département : ${d.target.__data__.properties.nom}  Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
-                  }
-              })
+            else{
+               console.warn(covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif)
+               setTextTooltip(`Région : ${d.target.__data__.properties.nom} '\n' Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
             }
             setOpacity(0.9);
             var x = d.clientX;
@@ -96,7 +104,7 @@ function GeoChart({localisation}){
         })
         .on("mouseout", function(d) {
             setOpacity(0);
-            setTextTooltip("");  
+            setTextTooltip("");
         });
 
         if(localisation !== undefined && localisation!== null){
@@ -106,7 +114,7 @@ function GeoChart({localisation}){
                .append("g")
                .style("fill","red")
                .attr("transform", function(d) { return "translate(" + projection([localisation[1],localisation[0]]) + ")"; })
-               .append("circle") 
+               .append("circle")
                .attr("r", 5)
         }
    } , [history,data,location,localisation]);
