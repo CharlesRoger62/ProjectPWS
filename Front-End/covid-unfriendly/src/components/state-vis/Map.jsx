@@ -20,7 +20,9 @@ function GeoChart({localisation}){
    const [top, setTop] = useState(-500);
    const [left, setLeft] = useState(-500);
 
-   const [textTooltip, setTextTooltip] = useState("");
+   const [textNameTooltip, setTextNameTooltip] = useState("");   
+   const [textDataTooltip, setTextDataTooltip] = useState("");
+
 
 
    let styleTooltip = {
@@ -60,7 +62,8 @@ function GeoChart({localisation}){
             
             if(location.pathname === '/'){
                setOpacity(0);
-               setTextTooltip("");
+               setTextNameTooltip("");
+               setTextDataTooltip("");
                svg.selectAll("g").remove()
             }
 
@@ -75,7 +78,11 @@ function GeoChart({localisation}){
                   console.warn("OUIIIII")
                   covidData = res.data;
                   covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x})));
-                  setTextTooltip(`Région : ${d.target.__data__.properties.nom}  Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
+                  setTextNameTooltip(`Région : ${d.target.__data__.properties.nom}`);
+
+                  if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
+                     setTextDataTooltip(`Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
+                  }
                })
             }
             else {
@@ -83,8 +90,10 @@ function GeoChart({localisation}){
               DepartementLastDataLoader(region_number).then( res => {
                   covidData = res.data;
                   covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.departement_num]: x})))
+                  setTextNameTooltip(`Département : ${d.target.__data__.properties.nom}`);
+
                   if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
-                     setTextTooltip(`Département : ${d.target.__data__.properties.nom}  Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
+                     setTextDataTooltip(`Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
                   }
               })
             }
@@ -96,7 +105,8 @@ function GeoChart({localisation}){
         })
         .on("mouseout", function(d) {
             setOpacity(0);
-            setTextTooltip("");  
+            setTextNameTooltip("");  
+            setTextDataTooltip("");
         });
 
         if(localisation !== undefined && localisation!== null){
@@ -118,7 +128,7 @@ function GeoChart({localisation}){
             <svg ref={svgRef}>
                <g></g>
             </svg>
-            <div class="tooltip" style={styleTooltip.container}>{textTooltip}</div>
+            <div class="tooltip" style={styleTooltip.container}>{textNameTooltip}<br/>{textDataTooltip}</div>
          </div>
       </Router>
    )
