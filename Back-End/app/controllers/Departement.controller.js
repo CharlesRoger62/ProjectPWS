@@ -37,15 +37,17 @@ exports.findAllWithLabel = async (req, res) => {
   };
 
 
-    //retrieve last data from a specific departement data with departement libelle
+    //retrieve last data from a specific region data with region number
 exports.findLastDataWithLabel = async (req, res) => {
   console.log("ca passe")
-  const departement_libelle=req.params.departement_libelle;
+  const region_number=req.params.region_number;
   console.log(req.params)
-  var condition_lib= departement_libelle ? { 'departement_libelle' : departement_libelle } : {};
+  
   var sort = {'jour' : -1};
   var limit = 1;
     try {
+      var lastDate = await DepartementService.findLastDate(sort, limit);
+      var condition_lib= region_number ? { 'region_num' : region_number, jour : lastDate } : {};
       var departements = await DepartementService.findLastDataWithLabel(condition_lib, sort, limit);
       return res.status(200).json({ status: 200, data: departements, message: "Succesfully last data Retrieved" });
   } catch (e) {
