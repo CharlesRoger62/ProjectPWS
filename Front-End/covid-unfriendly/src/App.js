@@ -5,6 +5,7 @@ import { useDarkMode } from './components/Theme/useDarkMode';
 import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
+import Location from './components/location/Location'
 import Toggle_button_theme from './components/Theme/Toggle_button_theme';
 import { Tooltip } from "redux-tooltip";
 import {useState} from "react";
@@ -21,10 +22,15 @@ import {
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  const [localisation, setLocalisation] = useState([0,0])
 
   if (!componentMounted) {
     return <div />
   };
+
+  const changeLocation = (coordinates) => {
+    setLocalisation(coordinates);
+  }
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -36,10 +42,12 @@ function App() {
           <Router>
             <Switch>
             <Route exact path="/">
-              <Map/>
+              <Map localisation = {localisation}/>
+              <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/regions">
-              <Map/>
+              <Map localisation = {localisation}/>
+              <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/departements">
               <DepartementDataTab />
