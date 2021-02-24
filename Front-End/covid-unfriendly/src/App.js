@@ -6,7 +6,7 @@ import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
 import Location from './components/location/Location'
-import Toggle_button_theme from './components/Theme/Toggle_button_theme';
+import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import { Tooltip } from "redux-tooltip";
 import {useState} from "react";
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
