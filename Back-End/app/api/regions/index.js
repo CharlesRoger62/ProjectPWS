@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { Region } = require('../../models');
+const region_controller = require('../../controllers/Region.controller');
 
 const router = new Router();
 
@@ -49,5 +50,7 @@ router.post('/', async (req, res) => {
     }
   }
 });
+
+router.get('/region/lastdata/', region_controller.findLastData);
 
 module.exports = router;
