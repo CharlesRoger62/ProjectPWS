@@ -5,7 +5,10 @@ import { useDarkMode } from './components/Theme/useDarkMode';
 import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
-import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
+import Location from './components/location/Location'
+import Toggle_button_theme from './components/Theme/Toggle_button_theme';
+import { Tooltip } from "redux-tooltip";
+import {useState} from "react";
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
 import {
   BrowserRouter as Router,
@@ -20,13 +23,15 @@ require('./lib/libs');
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  const [localisation, setLocalisation] = useState([0,0])
 
   if (!componentMounted) {
     return <div />
   };
 
-  //Faire les Link avec des routes rest exemple : /regions#Ile de France ou /departements#Ain grace à un map sur les region puis departements
-  //<Link to={"/regions"}>Regions</Link>
+  const changeLocation = (coordinates) => {
+    setLocalisation(coordinates);
+  }
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -38,10 +43,12 @@ function App() {
           <Router>
             <Switch>
             <Route exact path="/">
-              <Map/>
+              <Map localisation = {localisation}/>
+              <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/regions">
-              <Map/>
+              <Map localisation = {localisation}/>
+              <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/departements">
               <DepartementDataTab libelle={"Ain"}/>
