@@ -20,7 +20,9 @@ function GeoChart({localisation}){
    const [top, setTop] = useState(-500);
    const [left, setLeft] = useState(-500);
 
-   const [textTooltip, setTextTooltip] = useState("");
+   const [textNameTooltip, setTextNameTooltip] = useState("");
+   const [textDataTooltip, setTextDataTooltip] = useState("");
+
 
 
    const [covidDataDictionnary, setCovidDataDictionnary] = useState();
@@ -79,7 +81,8 @@ function GeoChart({localisation}){
 
             if(location.pathname === '/'){
                setOpacity(0);
-               setTextTooltip("");
+               setTextNameTooltip("");
+               setTextDataTooltip("");
                svg.selectAll("g").remove()
             }
 
@@ -89,12 +92,29 @@ function GeoChart({localisation}){
             });
          })
          .on("mouseover", function(d) {
-            if(location.pathname === '/regions'){
-               setTextTooltip(`Département : ${d.target.__data__.properties.nom} '\n' Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
+            if( location.pathname === '/'){
+               RegionLastDataLoader().then( res => {
+                  console.warn("OUIIIII")
+                  covidData = res.data;
+                  covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x})));
+                  setTextNameTooltip(`Région : ${d.target.__data__.properties.nom}`);
+
+                  if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
+                     setTextDataTooltip(`Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
+                  }
+               })
             }
-            else{
-               console.warn(covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif)
-               setTextTooltip(`Région : ${d.target.__data__.properties.nom} '\n' Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
+            else {
+              let region_number = RegionEnum[location.state.regionName];
+              DepartementLastDataLoader(region_number).then( res => {
+                  covidData = res.data;
+                  covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.departement_num]: x})))
+                  setTextNameTooltip(`Département : ${d.target.__data__.properties.nom}`);
+
+                  if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
+                     setTextDataTooltip(`Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
+                  }
+              })
             }
             setOpacity(0.9);
             var x = d.clientX;
@@ -104,7 +124,8 @@ function GeoChart({localisation}){
         })
         .on("mouseout", function(d) {
             setOpacity(0);
-            setTextTooltip("");
+            setTextNameTooltip("");
+            setTextDataTooltip("");
         });
 
         if(localisation !== undefined && localisation!== null){
@@ -126,7 +147,7 @@ function GeoChart({localisation}){
             <svg ref={svgRef}>
                <g></g>
             </svg>
-            <div class="tooltip" style={styleTooltip.container}>{textTooltip}</div>
+            <div class="tooltip" style={styleTooltip.container}>{textNameTooltip}<br/>{textDataTooltip}</div>
          </div>
       </Router>
    )
