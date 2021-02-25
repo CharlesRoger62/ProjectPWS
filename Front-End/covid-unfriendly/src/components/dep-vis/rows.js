@@ -2,14 +2,7 @@ import React from 'react';
 import {useState} from "react";
 import {RowData} from "./row-data";
 import {WeeksSubHeader} from "./weeks-sub-header";
-/*let item;
-                        if(index % 7 === 0){
-                            item += <WeeksSubHeader count={count} />
-                            count=count+1;
-                        }
-                        item+=
-                        return item;
-                        */
+
 export const Rows = (props) => {
     const [semaineCount,setSemaineCount] = useState(1);
     if(props.data !== undefined){
@@ -21,7 +14,7 @@ export const Rows = (props) => {
                 return(
                 <>
                 { modulo === 0 ?
-                    <WeeksSubHeader count={0} />
+                    <tr><WeeksSubHeader count={0} /></tr>
                      : <> </>
                 }
                     <tr>
