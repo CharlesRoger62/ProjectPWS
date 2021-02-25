@@ -3,8 +3,6 @@ import {useState} from "react";
 
 
 export const RowData = (props) => {
-    console.log("in row data");
-    console.log(props.value);
     if (props.value!==undefined){
         return (
             <>
