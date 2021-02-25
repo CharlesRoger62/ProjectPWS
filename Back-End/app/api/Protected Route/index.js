@@ -25,10 +25,9 @@ const requireRole = (role) => function requester(req, res, next) {
 
 router.get('/getpassword/:cryptedpassword', requireRole('user'), (req, res) => {
   try {
-    console.log('ok');
     res.send(`${req.params.cryptedpassword}4`);
   } catch (e) {
-    console.log(e.message);
+    res.send(e.message);
   }
 });
 
