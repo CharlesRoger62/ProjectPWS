@@ -1,4 +1,4 @@
-import React,{ useState, useRef } from 'react';
+import React,{useEffect ,useState, useRef} from 'react';
 import {TabHeader} from "./tab-header";
 import {DepartementName} from "./departement-name";
 import {Rows} from "./rows";
@@ -19,7 +19,12 @@ const useConstructor = (callBack = () => { }) => {
 export const DepartementDataTab = (props) => {
     const [currentPart, setCurrentPart] = useState(0);
     var [parts,setParts] = useState(new Map());
-    const [data,setData] = useState({});
+    const [first,setFirst] = useState(false);
+
+    /*useEffect( () => {
+        if(data === [])
+
+    },[data, props]);*/
 
     useConstructor(() => {
         let data;
@@ -31,46 +36,44 @@ export const DepartementDataTab = (props) => {
             var partCount=0;
 
             for(let i=1;i<=data.length;i++){
-                if(i%10===0){
+                if(i%25===0){
                     newParts.set(partCount,data.slice(nextNum,i))
                     partCount++;
                     nextNum=i;
                 }
             }
-            setData(data);
             setParts(newParts);
+            setFirst(true);
+
+            let items = [];
+            for (let number = 1; number <= 5; number++) {
+            items.push(
+                <Pagination.Item key={number} active={number === currentPart}>
+                    {number}
+                </Pagination.Item>,
+    );
         });
-    });
 
-    const handleOnClick = (index) => {
-        if(index < parts.size){
-            setCurrentPart(index);
-        }
+    })
+ /*let dataTab=[];
+        if(props !== undefined && data !== []){
+            dataTab = DepartementDataLoader(props);
+            console.log(dataTab);
+            .then(res => {
+                dataTab=res.data_tab;
+                setData(dataTab);
+            });
+            /*
+            console.log("data hook : " + JSON.stringify(data));
+        }*/
+
+
+
+
     }
 
-    const activePagination = (value) => {
-        if(value === currentPart+1){
-            return <Pagination.Item active>{value}</Pagination.Item>
-        }
-        else {
-            return <Pagination.Item onClick={() => {
-                handleOnClick(value-1)
-            }} >{value}</Pagination.Item>
-        }
-    }
-
-    if(parts !== undefined) {
-        let index_from_one = currentPart + 1;
-        let range=[];
-        for(let i = index_from_one-4 ;i < index_from_one + 3; i++){
-            if(i>0){
-                if(i > parts.size){
-                    i=parts.size;
-                    break;
-                }
-                range.push(i);
-            }
-        }
+    /**/
+    if(parts !== undefined){
         return(
             <>
                 <DepartementName name={props.libelle} />
@@ -82,28 +85,23 @@ export const DepartementDataTab = (props) => {
                         <Rows data={parts.get(currentPart)} semaineCount={0}/>
                     </tbody>
                 </table>
-                <Pagination className="center">
-                {currentPart !== 0 ? <Pagination.First onClick={() => {
-                        handleOnClick(0)
-                    } } /> : <> </>}
-                    {currentPart !== 0 ? <Pagination.Prev onClick={() => {
-                        handleOnClick(currentPart - 1)
-                    }} /> : <> </>}
-                    {range[0] > 3 ? <Pagination.Ellipsis onClick={() => {
-                        handleOnClick(currentPart - 4)
-                    }} /> : <> </>}
-                    {range.map((value) => {
-                        return activePagination(value);
-                    })}
-                    {currentPart < parts.size - 3 ? <Pagination.Ellipsis onClick={() => {
-                        handleOnClick(currentPart + 4)
-                    } } /> : <> </>}
-                    {currentPart !== parts.size-1 ? <Pagination.Next onClick={() => {
-                        handleOnClick(currentPart + 1)
-                    }} /> : <> </>}
-                    {currentPart !== parts.size-1 ? <Pagination.Last onClick={() => {
-                        handleOnClick(parts.size - 1)
-                    }}/> : <> </>} 
+                <Pagination>
+                    <Pagination.First />
+                    {currentPart!== 0 ? <Pagination.Prev /> : <> </>}
+
+                    <Pagination.Item>{1}</Pagination.Item>
+                    <Pagination.Ellipsis />
+
+                    <Pagination.Item onClick>{10}</Pagination.Item>
+                    <Pagination.Item onClick>{11}</Pagination.Item>
+                    <Pagination.Item active>{12}</Pagination.Item>
+                    <Pagination.Item onClick>{13}</Pagination.Item>
+                    <Pagination.Item disabled>{14}</Pagination.Item>
+
+                    <Pagination.Ellipsis />
+                    <Pagination.Item onClick>{20}</Pagination.Item>
+                    <Pagination.Next />
+                    <Pagination.Last />
                 </Pagination>
                 <Retour />
             </>
