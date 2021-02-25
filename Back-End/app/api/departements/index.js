@@ -10,8 +10,8 @@ router.get('/departement/bynum/:departement_num', departement_controller.findAll
 
 router.get('/departement/bylib/:departement_libelle', departement_controller.findAllWithLabel);
 
-router.get('/departement/lastdata/:region_number',departement_controller.findLastDataWithLabel)
+router.get('/departement/lastdata/:region_number', departement_controller.findLastDataWithLabel)
 
-router.get('/departement/lastdata/:region_number',departement_controller.findLastDataWithLabel)
+//router.get('/departement/lastdata/:region_number', departement_controller.findLastDataWithLabel)
 
 module.exports = router;
