@@ -20,7 +20,6 @@ function GeoChart(){
    const [left, setLeft] = useState(-500);
 
    const [textTooltip, setTextTooltip] = useState("");
-
    let styleTooltip = {
         container: {
             opacity: opacity,

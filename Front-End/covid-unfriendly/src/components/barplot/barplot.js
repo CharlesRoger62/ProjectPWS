@@ -8,53 +8,29 @@ export const BarPlot = (props) => {
     const svg = select(ref.current);
     // set the dimensions and margins of the graph
     const margin = {top: 20, right: 30, bottom: 40, left: 90},
-        width = 460 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-    // append the svg object to the body of the page
-    svg.append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-
-    // Initialize the X axis
-    let x = d3.scaleLinear()
-        .range([ 0, width ])
-
-    let xAxis = svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-
-
-    // Initialize the Y axis
-    let y = d3.scaleBand()
-        .range([ height, 0])
-
-    let yAxis = svg.append("g")
-        .attr("class", "myYaxis")
 
 
     useEffect(() => {
 
         if( props.data.length > 0) {
-            const data = props.data.slice(0,6);
+            const data = props.data;
             data.sort( (a,b) => {
                 return a[props.select] < b[props.select];
             })
             // console.table(data);
-            svg.selectAll("*").remove();
+
             // append the svg object to the body of the page
             svg.append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
 
+            svg.selectAll("*").remove();
             // Initialize the X axis
             let x = d3.scaleLinear()
-                .range([ 0, width ])
+            .range([1, width])
 
             let xAxis = svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
@@ -66,12 +42,15 @@ export const BarPlot = (props) => {
 
             let yAxis = svg.append("g")
                 .attr("class", "myYaxis")
+
+
             // Update the X axis
             x.domain([0, d3.max(data, (d) => { return d[props.select]; })])
             xAxis.transition().duration(1000).call(d3.axisBottom(x))
 
             // text label for the x axis
             svg.append("text")
+                .transition().duration(1000)
                 .attr("transform",
                     "translate(" + (width/2) + " ," +
                     (height + margin.top + 20) + ")")
@@ -86,6 +65,7 @@ export const BarPlot = (props) => {
 
             // text label for the y axis
             svg.append("text")
+                .transition().duration(1000)
                 .attr("transform", "rotate(-90)")
                 .attr("y", 0 - margin.left)
                 .attr("x",0 - (height / 2))
@@ -109,7 +89,8 @@ export const BarPlot = (props) => {
                 .attr("y", (d) => { return y(d.region_num); })
                 .attr("width", (d) => { return x(d[props.select]); })
                 .attr("height", y.bandwidth())
-                .attr("fill", "#69b3a2")
+                .attr("fill", "#69b3a2");
+
 
             const t = svg.selectAll('valueRect')
                 .data(data)
@@ -246,6 +227,7 @@ export const BarPlot = (props) => {
 
     useEffect(() => {
         console.log(props.select)
+        console.table(props.data)
 
     }, [props.select])
 

@@ -67,17 +67,42 @@ exports.findAllByRegionLibelle = (req, res) => {
   }
 };
 
+const getUniqueKeys = (arr) => {
+  const keys = arr.map((ele) => ele.region_num).filter((ele, i, arr) => arr.indexOf(ele) === i);
+  return keys;
+};
+
+const selectData = (dataset, keys) => {
+  const final = [];
+  keys.forEach((v) => {
+    const row = {};
+    row.region_num = v;
+    row.cas = 0;
+    row.tests = 0;
+
+    dataset.forEach((e) => {
+      if (e.region_num === v) {
+        row.cas += e.nbtest_positif;
+        row.tests += e.nbtest;
+      }
+    });
+    final.push(row);
+  });
+  return final;
+};
+
 // Retrive all Regions with class_age === 0
 exports.findAllByClass0 = (req, res) => {
   Region.find({ classe_age: 0 })
     .then((data) => {
-      res.json(data);
+      const keys = getUniqueKeys(data);
+      const final = selectData(data, keys);
+      res.json(final);
     })
     .catch((error) => {
       console.log('error: ', error);
     });
 };
-
 
 // Find a single Region at date
 exports.findOne = (req, res) => {
