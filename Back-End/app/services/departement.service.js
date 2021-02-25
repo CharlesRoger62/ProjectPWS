@@ -35,7 +35,7 @@ exports.findLastDataWithLabel = async function (condition, sort, limit) {
         return departements;
     }
     catch (e) {
-        throw Error("Some error occurred while retrieving Departements with label = "+ condition.departement_libelle + " : " + e.message);
+        throw Error("Some error occurred while retrieving Departements with label = "+ condition.departement_number + " : " + e.message);
     }
 }
 

@@ -37,9 +37,9 @@ exports.findAllWithLabel = async (req, res) => {
 
     //retrieve last data from a specific region data with region number
 exports.findLastDataWithLabel = async (req, res) => {
-  console.log("ca passe")
+  console.log("ca passe : mdrrrrr")
   const region_number=req.params.region_number;
-  console.log(req.params)
+  console.log(req.params);
   
   var sort = {'jour' : -1};
   var limit = 1;
