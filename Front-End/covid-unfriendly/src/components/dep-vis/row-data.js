@@ -3,10 +3,12 @@ import {useState} from "react";
 
 
 export const RowData = (props) => {
+    console.log("in row data");
+    console.log(props.value);
     if (props.value!==undefined){
         return (
             <>
-                <td>{props.value.date}</td>
+                <td>{props.value.jour}</td>
                 <td>{props.value.nbtest_positif}</td>
                 <td>{props.value.nbtest}</td>
                 <td>tranche d'age ...</td>
