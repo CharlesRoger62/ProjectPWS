@@ -20,7 +20,7 @@ function Location(props) {
 
     return(
         <Router>
-            <button class="location" onClick={geo}>Localisez-moi</button>
+            <button className="location" onClick={geo}>Localisez-moi</button>
         </Router>
     );
 }

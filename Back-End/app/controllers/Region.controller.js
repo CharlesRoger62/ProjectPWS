@@ -69,14 +69,13 @@ exports.findAllByRegionNum = (req, res) => {
 
 //retrieve last data from a all regions
 exports.findLastData = async (req, res) => {
-  
+  var region_number = req.params.region_num;
   var sort = {'jour' : -1};
-  var limit = 1;
     try {
-      var lastDate = (await Region.find().sort(sort).limit(limit))[0].jour;
-      var condition_lib= {classe_age : 0, jour : lastDate}
+      var lastDate = (await Region.findOne().sort(sort)).jour;
+      var condition_lib= {region_num : region_number,classe_age : 0, jour : lastDate}
      
-      var regions = await Region.find(condition_lib);
+      var regions = await Region.findOne(condition_lib);
       return res.status(200).json({ status: 200, data: regions, message: "Succesfully last data Retrieved" });
   } catch (e) {
       return res.status(400).json({ status: 400, message: e.message });

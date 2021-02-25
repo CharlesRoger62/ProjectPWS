@@ -36,17 +36,17 @@ exports.findAllWithLabel = async (req, res) => {
 
 //retrieve last data from a specific departement data with departement libelle
 exports.findLastDataWithLabel = async (req, res) => {
-  console.log("ca passe : mdrrrrr")
-  const region_number=req.params.region_number;
-  console.log(req.params);
-  var sort = {'jour' : -1};
-  var limit = 1;
-    try {
-      var lastDate = await DepartementService.findLastDate(sort, limit);
-      var condition_lib= region_number ? { 'region_num' : region_number, jour : lastDate } : {};
-      var departements = await DepartementService.findLastDataWithLabel(condition_lib, sort, limit);
-      return res.status(200).json({ status: 200, data: departements, message: "Succesfully last data Retrieved" });
-  } catch (e) {
-      return res.status(400).json({ status: 400, message: e.message });
+  const departement_number=req.params.departement_number;
+  if(Number.isInteger(departement_number)){
+    var sort = {'jour' : -1};
+      try {
+        var lastDate = await DepartementService.findLastDate(sort);
+        var condition_lib = departement_number ? { 'departement_num' : departement_number, jour : lastDate } : {};
+        var departement = await DepartementService.findLastDataWithLabel(condition_lib);
+        return res.status(200).json({ status: 200, data: departement, message: "Succesfully last data Retrieved" });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
   }
+  return res.status(200).json({status: 200, data: undefined, message: "Number departement must be an integer"})
 };
