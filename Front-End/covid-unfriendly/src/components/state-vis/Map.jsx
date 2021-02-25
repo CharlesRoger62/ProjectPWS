@@ -39,7 +39,6 @@ function GeoChart({localisation}){
    let data = location.pathname === '/' ? france : regionFolder(`./${location.state.regionName}.json`); 
    let covidData = null;
    let covidDataDictionnary = null;
-   console.warn("CA PASSSSSE")
 
    useEffect(() => {
       const svg = select(svgRef.current);
@@ -49,7 +48,7 @@ function GeoChart({localisation}){
       }
 
       const projection = geoConicConformal()
-      .fitSize([500,500],data)
+      .fitSize([400,400],data)
 
       const pathGenerator = geoPath().projection(projection);
 
@@ -73,27 +72,26 @@ function GeoChart({localisation}){
             });
          })
          .on("mouseover", function(d) {
+            let region_number = RegionEnum[d.target.__data__.properties.nom];
             if( location.pathname === '/'){
-               RegionLastDataLoader().then( res => {
-                  console.warn("OUIIIII")
+               RegionLastDataLoader(region_number).then( res => {
                   covidData = res.data;
-                  covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x})));
+                  //covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x})));
                   setTextNameTooltip(`Région : ${d.target.__data__.properties.nom}`);
 
-                  if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
-                     setTextDataTooltip(`Nombre de cas positifs : ${covidDataDictionnary[RegionEnum[d.target.__data__.properties.nom]].nbtest_positif}`);
+                  if(covidData !== undefined){
+                     setTextDataTooltip(`Nombre de cas positifs : ${covidData.nbtest_positif}`);
                   }
                })
             }
             else {
-              let region_number = RegionEnum[location.state.regionName];
-              DepartementLastDataLoader(region_number).then( res => {
+              DepartementLastDataLoader(d.target.__data__.properties.code).then( res => {
                   covidData = res.data;
-                  covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.departement_num]: x})))
+                  //covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.departement_num]: x})))
                   setTextNameTooltip(`Département : ${d.target.__data__.properties.nom}`);
 
-                  if(covidDataDictionnary[d.target.__data__.properties.code] !== undefined){
-                     setTextDataTooltip(`Nombre de cas positifs : ${covidDataDictionnary[d.target.__data__.properties.code].nbtest_positif}`);
+                  if(covidData !== undefined && covidData !== null){
+                     setTextDataTooltip(`Nombre de cas positifs : ${covidData.nbtest_positif}`);
                   }
               })
             }
@@ -128,7 +126,7 @@ function GeoChart({localisation}){
             <svg ref={svgRef}>
                <g></g>
             </svg>
-            <div class="tooltip" style={styleTooltip.container}>{textNameTooltip}<br/>{textDataTooltip}</div>
+            <div className="tooltip" style={styleTooltip.container}>{textNameTooltip}<br/>{textDataTooltip}</div>
          </div>
       </Router>
    )

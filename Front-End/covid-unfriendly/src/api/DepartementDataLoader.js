@@ -46,7 +46,6 @@ const DepartementDataLoader = (props) => {
 }
 
 export const DepartementLastDataLoader = async (props) =>{
-    console.warn("=====>"+props)
     if(props !== undefined){
         let data = {};
         await axios.get("http://localhost:9428/api/servicedepartements/departement/lastdata/" + props)

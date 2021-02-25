@@ -51,6 +51,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/region/lastdata/', region_controller.findLastData);
+router.get('/region/lastdata/:region_num', region_controller.findLastData);
 
 module.exports = router;

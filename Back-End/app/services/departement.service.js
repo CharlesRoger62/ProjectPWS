@@ -28,11 +28,11 @@ exports.findAllWithLabel = async (condition) => {
   }
 };
 
-exports.findLastDataWithLabel = async function (condition, sort, limit) {
+exports.findLastDataWithLabel = async function (condition) {
     try {
-        //console.log(condition);
-        var departements = await Departement.find(condition);
-        return departements;
+        var departement = await Departement.findOne(condition);
+        console.log(departement)
+        return departement;
     }
     catch (e) {
         throw Error("Some error occurred while retrieving Departements with label = "+ condition.departement_number + " : " + e.message);
@@ -40,31 +40,9 @@ exports.findLastDataWithLabel = async function (condition, sort, limit) {
 }
 
 
-exports.findLastDate = async function (sort, limit) {
+exports.findLastDate = async function (sort) {
     try {
-        var lastDate = (await Region.find().sort(sort).limit(limit))[0].jour;
-        return lastDate
-    }
-    catch (e) {
-        throw Error("Some error occurred while retrieving Last Date");
-    }
-}
-
-exports.findLastDataWithLabel = async function (condition, sort, limit) {
-    try {
-        //console.log(condition);
-        var departements = await Departement.find(condition);
-        return departements;
-    }
-    catch (e) {
-        throw Error("Some error occurred while retrieving Departements with label = "+ condition.departement_libelle + " : " + e.message);
-    }
-}
-
-
-exports.findLastDate = async function (sort, limit) {
-    try {
-        var lastDate = (await Region.find().sort(sort).limit(limit))[0].jour;
+        var lastDate = (await Departement.findOne().sort(sort)).jour;
         return lastDate
     }
     catch (e) {

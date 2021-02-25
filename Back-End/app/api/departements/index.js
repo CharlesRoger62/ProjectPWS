@@ -10,7 +10,7 @@ router.get('/departements/', departement_controller.findAll);
 
 router.get('/departement/bynum/:departementNum', departement_controller.findAllWithId);
 
-router.get('/departement/lastdata/:region_number', departement_controller.findLastDataWithLabel)
+router.get('/departement/lastdata/:departement_number', departement_controller.findLastDataWithLabel)
 
 //router.get('/departement/lastdata/:region_number', departement_controller.findLastDataWithLabel)
 
