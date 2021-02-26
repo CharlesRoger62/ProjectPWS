@@ -38,7 +38,8 @@ function App() {
           <Router>
             <Switch>
             <Route exact path="/">
-              <div style={{display: "inline-flex"}}>
+              <div>
+                <Map/>
                 <ChartRegions/>
               </div>
             </Route>
