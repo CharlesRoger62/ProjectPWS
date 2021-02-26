@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ThemeProvider } from 'styled-components';
 import './App.css';
 import { useDarkMode } from './components/Theme/useDarkMode';
@@ -6,20 +6,24 @@ import { lightTheme, darkTheme } from './components/Theme/theme';
 import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
-import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
+import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+import {AuthContext} from './context/AuthContext/auth-context';
+import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
+//import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
-
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  const AuthContext = React.createContext("admin");
+  const [adminCon, setAdminCon] = useState(false);
 
   if (!componentMounted) {
     return <div />
@@ -46,6 +50,11 @@ function App() {
             <Route exact path="/departements">
               <DepartementDataTab libelle={"Ain"}/>
             </Route>
+            <AuthContext.Provider value={adminCon ? 'admin' : ''} >
+            <Route exact path="/login">
+              <AuthentificationForm />
+            </Route>
+            </AuthContext.Provider>
             </Switch>
           </Router>
         </div>
