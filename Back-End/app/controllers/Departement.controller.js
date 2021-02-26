@@ -37,7 +37,7 @@ exports.findAllWithLabel = async (req, res) => {
 //retrieve last data from a specific departement data with departement libelle
 exports.findLastDataWithLabel = async (req, res) => {
   const departement_number=req.params.departement_number;
-  if(Number.isInteger(departement_number)){
+  //if(Number.isInteger(departement_number)){
     var sort = {'jour' : -1};
       try {
         var lastDate = await DepartementService.findLastDate(sort);
@@ -47,6 +47,6 @@ exports.findLastDataWithLabel = async (req, res) => {
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
-  }
-  return res.status(200).json({status: 200, data: undefined, message: "Number departement must be an integer"})
+  //}
+  //return res.status(200).json({status: 200, data: undefined, message: "Number departement must be an integer"})
 };
