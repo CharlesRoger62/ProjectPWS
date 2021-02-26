@@ -8,8 +8,8 @@ export const BarPlot = (props) => {
     const svg = select(ref.current);
     // set the dimensions and margins of the graph
     const margin = {top: 20, right: 30, bottom: 40, left: 90},
-        width = 600 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 580 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
 
 
@@ -41,6 +41,7 @@ export const BarPlot = (props) => {
                 .range([ height, 0])
 
             let yAxis = svg.append("g")
+                .attr('width', 200)
                 .attr("class", "myYaxis")
 
 
@@ -233,9 +234,8 @@ export const BarPlot = (props) => {
 
     return (
         <div>
-            <svg ref={ref} />
+            <svg  ref={ref} />
         </div>
     );
 
 };
-
