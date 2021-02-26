@@ -3,5 +3,5 @@ const minCommentCustomMessage = 'Your comment must be longer (at least 30 caract
 const maxCommentCustomMessage = 'Your comment is too long (maximum 500 caracters)';
 
 exports.defaultMessage = defaultMessage;
-exports.minAgeCustomMessage = minCommentCustomMessage;
-exports.maxAgeCustomMessage = maxCommentCustomMessage;
+exports.minCommentCustomMessage = minCommentCustomMessage;
+exports.maxCommentCustomMessage = maxCommentCustomMessage;

@@ -1,0 +1,25 @@
+.disabled{
+    visibility: hidden;
+}
+
+.showed{
+    visibility: visible;
+}
+
+.comp-height{
+    
+}
+
+.comment-field{
+    
+}
+
+.sujet-field{
+    margin-left: 20%;
+    width: 100%;
+    
+}
+
+.large{
+    width: 100%
+}
