@@ -99,8 +99,8 @@ export const BarPlot = (props) => {
                 .on("mouseover", d => {
                     setOpacity(0.9);
                     setTextTooltip(getRegionLibFromNumber(d.target.__data__.region_num));
-                    setLeft(width/2);
-                    setTop(height/2);
+                    setLeft(d.clientX);
+                    setTop(d.clientY + (height/2));
                 })
                 .on("mouseout", (d) => {
                     setOpacity(0);
@@ -124,8 +124,8 @@ export const BarPlot = (props) => {
                 .on("mouseover", d => {
                     setOpacity(0.9);
                     setTextTooltip(getRegionLibFromNumber(d.target.__data__.region_num));
-                    setLeft(width/2);
-                    setTop(height/2);
+                    setLeft(d.clientX);
+                    setTop(d.clientY + (height/2));
                 })
                 .on("mouseout", (d) => {
                     setOpacity(0);
