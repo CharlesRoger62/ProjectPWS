@@ -7,18 +7,16 @@ import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
 import Location from './components/location/Location'
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
-import { Tooltip } from "redux-tooltip";
-import {useState} from "react";
-import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
+import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-//import {AuthContext} from './context/AuthContext/auth-context';
-//import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
-import {ContactForm} from './components/contact-form/contact-form';
+import {AuthContext} from './context/AuthContext/auth-context';
+import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
+//import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
 
@@ -60,6 +58,9 @@ function App() {
             <AuthContext.Provider value={adminCon ? 'admin' : ''} >
             <Route exact path="/contact">
               <ContactForm />
+            </Route
+            <Route exact path="/login">
+                <AuthentificationForm />
             </Route>
             </AuthContext.Provider>
             </Switch>
