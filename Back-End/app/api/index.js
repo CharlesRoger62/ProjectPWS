@@ -1,19 +1,21 @@
 /* eslint-disable linebreak-style */
-const { Router } = require('express');
+const express = require('express');
 const RegionRouter = require('./regions');
 const JourRouter = require('./jours');
 const SemaineRouter = require('./semaines');
 const DepartementRouter = require('./departements');
 const CSVParser = require('./CSV Parser');
-var express = require('express');
-var router = express.Router();
+const protectedRoute = require('./Protected Route');
 
-router.get('/status', (req, res) => res.status(200).json('ok'));
+const router = express.Router();
+
+router.get('/status', (req, res) => res.status(200).json('server is runing well'));
 
 router.use('/serviceregions', RegionRouter);
 router.use('/servicejours', JourRouter);
 router.use('/servicesemaines', SemaineRouter);
 router.use('/servicedepartements', DepartementRouter);
 router.use('/servicecsvparser', CSVParser);
+router.use('/protectedservice', protectedRoute);
 
 module.exports = router;
