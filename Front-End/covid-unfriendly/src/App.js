@@ -16,6 +16,7 @@ import {
 } from "react-router-dom";
 import {AuthContext} from './context/AuthContext/auth-context';
 import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
+import {ContactForm} from './components/contact-form/contact-form';
 //import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
@@ -58,7 +59,7 @@ function App() {
             <AuthContext.Provider value={adminCon ? 'admin' : ''} >
             <Route exact path="/contact">
               <ContactForm />
-            </Route
+            </Route>
             <Route exact path="/login">
                 <AuthentificationForm />
             </Route>
