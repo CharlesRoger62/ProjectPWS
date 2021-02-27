@@ -63,13 +63,21 @@ function GeoChart({localisation}){
                setOpacity(0);
                setTextNameTooltip("");
                setTextDataTooltip("");
-               svg.selectAll("g").remove()
+               svg.selectAll("g").remove();
+               history.push({
+                  pathname: '/regions',
+                  state: {regionName : d.target.__data__.properties.nom}
+               });
             }
+            else if(location.pathname === '/regions'){
+               history.push({
+                  pathname: '/departements',
+                  state: {libelle : d.target.__data__.properties.nom}
+               });
+            }
+            
 
-            history.push({
-               pathname: '/regions',
-               state: {regionName : d.target.__data__.properties.nom}
-            });
+            
          })
          .on("mouseover", function(d) {
             let region_number = RegionEnum[d.target.__data__.properties.nom];

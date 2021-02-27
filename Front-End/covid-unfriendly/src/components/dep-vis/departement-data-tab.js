@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import './departement-data-tab.scss';
 import DepartementDataLoader from "../../api/DepartementDataLoader";
 import Pagination from 'react-bootstrap/Pagination';
+import { useLocation } from "react-router-dom";
 
 const useConstructor = (callBack = () => { }) => {
     const hasBeenCalled = useRef(false);
@@ -16,6 +17,7 @@ const useConstructor = (callBack = () => { }) => {
 }
 
 export const DepartementDataTab = (props) => {
+    let location = useLocation();
     const [currentPart, setCurrentPart] = useState(0);
     var [parts,setParts] = useState(new Map());
     const [data,setData] = useState({});
@@ -24,7 +26,7 @@ export const DepartementDataTab = (props) => {
 
     useConstructor(() => {
         let data;
-        DepartementDataLoader(props).then(res => {
+        DepartementDataLoader(location.state).then(res => {
             data=res.data.data_tab;
 
             var nextNum=0;
@@ -119,7 +121,7 @@ export const DepartementDataTab = (props) => {
         }
         return(
             <>
-                <DepartementName name={props.libelle} />
+                <DepartementName name={location.state.libelle} />
                 <table className="theme-light">
                     <thead>
                         <TabHeader onSort={handleSorting} sortBy={sortType}/>

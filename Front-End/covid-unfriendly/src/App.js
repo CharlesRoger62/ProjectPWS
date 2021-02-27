@@ -54,7 +54,7 @@ function App() {
               <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/departements">
-              <DepartementDataTab libelle={"Ain"}/>
+              <DepartementDataTab />
             </Route>
             <AuthContext.Provider value={adminCon ? 'admin' : ''} >
             <Route exact path="/contact">

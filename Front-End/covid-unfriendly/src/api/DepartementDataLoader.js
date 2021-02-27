@@ -3,8 +3,6 @@ const axios = require('axios');
 //from https://reactjsexample.com/simple-and-accessible-loading-indicators-with-react/
 //import { SpinningCircles, useLoading } from '@agney/react-loading';
 
-
-
 const DepartementDataLoader = (props) => {
     /* // code for beautiful loader
     const Content  = () => {
