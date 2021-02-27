@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import './departement-data-tab.scss';
 import DepartementDataLoader from "../../api/DepartementDataLoader";
 import Pagination from 'react-bootstrap/Pagination';
-import PageItem from 'react-bootstrap/PageItem';
+import { useLocation } from "react-router-dom";
 
 const useConstructor = (callBack = () => { }) => {
     const hasBeenCalled = useRef(false);
@@ -17,13 +17,16 @@ const useConstructor = (callBack = () => { }) => {
 }
 
 export const DepartementDataTab = (props) => {
+    let location = useLocation();
     const [currentPart, setCurrentPart] = useState(0);
     var [parts,setParts] = useState(new Map());
     const [data,setData] = useState({});
+    const [sortType,setSortType] = useState(new Map());
+    const [forcerender,SetForceRender] = useState(true);
 
     useConstructor(() => {
         let data;
-        DepartementDataLoader(props).then(res => {
+        DepartementDataLoader(location.state).then(res => {
             data=res.data.data_tab;
 
             var nextNum=0;
@@ -39,6 +42,11 @@ export const DepartementDataTab = (props) => {
             }
             setData(data);
             setParts(newParts);
+            let temp= new Map();
+            for(let i =0 ; i<=6 ; i++){
+                temp.set(i,'asc');
+            }
+            setSortType(temp);
         });
     });
 
@@ -59,6 +67,46 @@ export const DepartementDataTab = (props) => {
         }
     }
 
+    const compareForSpecificColumn = (key , order = 'asc') =>{
+            return function innerSort(a, b) {
+              if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+                return 0;
+              }
+          
+              const varA = (typeof a[key] === 'string')
+                ? a[key].toUpperCase() : a[key];
+              const varB = (typeof b[key] === 'string')
+                ? b[key].toUpperCase() : b[key];
+          
+              let comparison = 0;
+              if (varA > varB) {
+                comparison = 1;
+              } else if (varA < varB) {
+                comparison = -1;
+              }
+              return (
+                (order === 'desc') ? (comparison * -1) : comparison
+              );
+            };
+    }
+
+
+    const handleSorting = (changingKey,index,newSortBy) =>{
+        let oldParts=parts;
+        setSortType(newSortBy);
+        let tableau = parts.get(currentPart);
+        tableau.sort(compareForSpecificColumn(changingKey, newSortBy.get(index)));
+        oldParts.set(currentPart, tableau);
+        setParts(oldParts);
+        if(forcerender === true){
+            SetForceRender(false);
+        }
+        else{
+            SetForceRender(true);
+        }
+        
+    }
+    
     if(parts !== undefined) {
         let index_from_one = currentPart + 1;
         let range=[];
@@ -73,10 +121,10 @@ export const DepartementDataTab = (props) => {
         }
         return(
             <>
-                <DepartementName name={props.libelle} />
+                <DepartementName name={location.state.libelle} />
                 <table className="theme-light">
                     <thead>
-                        <TabHeader />
+                        <TabHeader onSort={handleSorting} sortBy={sortType}/>
                     </thead>
                     <tbody>
                         <Rows data={parts.get(currentPart)} semaineCount={0}/>
