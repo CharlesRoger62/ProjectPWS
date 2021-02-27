@@ -68,7 +68,9 @@ exports.findAllByRegionLibelle = (req, res) => {
 };
 
 const getUniqueKeys = (arr) => {
-  const keys = arr.map((ele) => ele.region_num).filter((ele, i, arr) => arr.indexOf(ele) === i);
+  let keys = arr.map((ele) => ele.region_num).filter((ele, i, arr) => arr.indexOf(ele) === i);
+  const toRemove = [5,7,8]; //unknwn regions
+  keys = keys.filter((el) => !toRemove.includes(el));
   return keys;
 };
 

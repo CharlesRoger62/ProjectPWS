@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import * as d3 from 'd3';
 import {select} from "d3";
-
+import region_name_by_number from "./RegionNameByNumberEnum" ;
 export const BarPlot = (props) => {
 
     const ref = React.useRef();
@@ -98,7 +98,7 @@ export const BarPlot = (props) => {
                 .append("rect") // Add a new rect for each new elements
                 .on("mouseover", d => {
                     setOpacity(0.9);
-                    setTextTooltip(getRegionLibFromNumber(d.target.__data__.region_num));
+                    setTextTooltip(region_name_by_number[d.target.__data__.region_num]);
                     setLeft(d.clientX);
                     setTop(d.clientY + (height/2));
                 })
@@ -123,7 +123,7 @@ export const BarPlot = (props) => {
                 .append("text")
                 .on("mouseover", d => {
                     setOpacity(0.9);
-                    setTextTooltip(getRegionLibFromNumber(d.target.__data__.region_num));
+                    setTextTooltip(region_name_by_number[d.target.__data__.region_num]);
                     setLeft(d.clientX);
                     setTop(d.clientY + (height/2));
                 })
@@ -265,29 +265,6 @@ export const BarPlot = (props) => {
 
     }, [props.select])
 
-    const getRegionLibFromNumber = (nb) => {
-        switch (nb){
-            case 84: return 'Auvergne Rhône Alpes';
-            case 27: return 'Bourgogne Franch-Comté';
-            case 53: return 'Bretagne';
-            case 24: return 'Centre Val de Loire';
-            case 94: return 'Corse';
-            case 44: return 'Grand Est';
-            case 1: return 'Guadeloupe';
-            case 3: return 'Gyane';
-            case 32: return 'Hauts de France';
-            case 11: return 'Ile de France';
-            case 2: return 'Martinique';
-            case 4: return 'La Réunion';
-            case 6: return 'Mayotte';
-            case 28: return 'Normandie';
-            case 75: return 'Nouvelle Aquitaine';
-            case 76: return 'Occitanie';
-            case 52: return 'Pays de Loire';
-            case 93: return 'Provence Alpes Côte d\'Azur';
-            default: return 'Not found'
-        }
-    }
 
     return (
         <div>
