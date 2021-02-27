@@ -8,6 +8,7 @@ import Map from './components/state-vis/Map';
 import Location from './components/location/Location'
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
+import AuthentificationButton from './components/authentification/authentification-button';
 import {
   BrowserRouter as Router,
   Switch,
@@ -46,6 +47,7 @@ function App() {
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <AuthentificationButton />
           <Router>
+          <AuthentificationButton />
             <Switch>
             <Route exact path="/">
               <Map localisation = {localisation}/>
