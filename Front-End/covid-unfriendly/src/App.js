@@ -15,7 +15,7 @@ import {
   Link
 } from "react-router-dom";
 import {AuthContext} from './context/AuthContext/auth-context';
-import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
+//import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
 import {ContactForm} from './components/contact-form/contact-form';
 import { AuthentificationButton } from './components/authentification/authentification-button';
 //import {ContactForm} from './components/contact-form/contact-form';
@@ -62,9 +62,7 @@ function App() {
             <Route exact path="/contact">
               <ContactForm />
             </Route>
-            <Route exact path="/login">
-                <AuthentificationForm />
-            </Route>
+            
             </AuthContext.Provider>
             </Switch>
           </Router>
