@@ -34,7 +34,6 @@ exports.findAllWithLabel = async (req, res) => {
   }
 };
 
-
     //retrieve last data from a specific region data with region number
 exports.findLastDataWithLabel = async (req, res) => {
   const departement_number=req.params.departement_number;
