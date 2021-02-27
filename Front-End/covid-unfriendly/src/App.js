@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 import {BarPlot} from "./components/barplot/barplot";
 import {ChartRegions} from "./components/barplot/ChartRegions";
+import {HeaderNav} from "./components/header/header";
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,15 +32,14 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <body>
+      <HeaderNav/>
         <GlobalStyles />
         <div id="map">
-          <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <Toggle_button_theme theme={theme} toggleTheme={toggleTheme} />
           <Router>
             <Switch>
             <Route exact path="/">
               <div>
-                <Map/>
                 <ChartRegions/>
               </div>
             </Route>
