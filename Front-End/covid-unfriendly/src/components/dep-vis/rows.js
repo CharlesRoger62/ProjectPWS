@@ -30,7 +30,7 @@ export const Rows = (props) => {
     else {
         return(
         <tr>
-            <td>Still Loading</td>
+            <td>No Data Available</td>
         </tr>
         );
     }
