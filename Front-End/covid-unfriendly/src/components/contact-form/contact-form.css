@@ -1,25 +1,49 @@
 .disabled{
-    visibility: hidden;
+    display: none;
 }
 
 .showed{
-    visibility: visible;
-}
-
-.comp-height{
-    
+    display: flex;
 }
 
 .comment-field{
-    
+    margin-top: -10%;
+    margin-left: 47%;
+    width: 100%;
 }
 
 .sujet-field{
-    margin-left: 20%;
+    margin-left: 110%;
     width: 100%;
+    margin-top: -15%;
     
+}
+
+.sujet-label {
+    margin-left: 35%;
+}
+
+.comment-label {
+    margin-left: 33%;
 }
 
 .large{
     width: 100%
+}
+
+.mail-form-group{
+    margin-bottom: 10%;
+}
+
+.myrow{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -30%;
+    margin-left: -30%;
+}
+
+.my-modulable-row{
+    flex-wrap: wrap;
+    margin-right: -30%;
+    margin-left: -30%;
 }

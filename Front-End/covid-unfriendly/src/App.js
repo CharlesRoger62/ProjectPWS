@@ -13,7 +13,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import {AuthContext} from './context/AuthContext/auth-context';
+//import {AuthContext} from './context/AuthContext/auth-context';
 //import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
 import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');

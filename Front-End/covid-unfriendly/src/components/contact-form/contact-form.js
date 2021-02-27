@@ -3,6 +3,7 @@ import { Field, FieldError, Form } from 'react-jsonschema-form-validation';
 import {contactSchema} from './contact-form.schema';
 import {defaultMessage, minCommentCustomMessage , maxCommentCustomMessage } from './contact-error-form.messages';
 import Submit from './submit';
+import { useHistory } from "react-router-dom";
 import {
 	Col,
 	FormGroup,
@@ -11,7 +12,7 @@ import {
 	Row,
   Alert
 } from 'reactstrap';
-import {AuthContext} from '../../context/AuthContext/auth-context';
+//import {AuthContext} from '../../context/AuthContext/auth-context';
 import './contact-form.css';
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
@@ -22,12 +23,14 @@ export const ContactForm= () => {
     const [formData, setFormData] = useState({ nom : '' , prenom: '',  mail: '', comment : '', sujet : '', 
     defaultMessage, minCommentCustomMessage, maxCommentCustomMessage });
     const [visible,setVisible] = useState(new Map());
+    const [atLeastOneError,setAtLeastOneError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [adminAuth,setAdminAuth] = useState(false);
     const [dec,setDec] =useState('');
     const [transporter,setTransporter] = useState({});
     const [mailOptions,setMailOptions] = useState({});
+    const history = useHistory();
     const initialState = {
       loading: "",
       error: "",
@@ -118,15 +121,24 @@ export const ContactForm= () => {
         setLoading(true);
         setLoading(false);
       }
+      let temp = true ;
+      for (var v in visible.value()){
+        if(v===false){
+          temp=false;
+        }
+      }
+      setAtLeastOneError(temp);
       if(success === false)
         setSuccess(true);
       if(success === true )
         sendMail();
-      let newMap=new Map();
+      window.alert('email sent');
+      history.push('/');
+      /*let newMap=new Map();
       for (let i=0 ;i<=2;i++){
         newMap.set('e'+i,true);
       } 
-      setVisible(newMap);
+      setVisible(newMap);*/
     }
 
     
@@ -134,8 +146,9 @@ export const ContactForm= () => {
       if(newData !== data){
         setFormData(newData);
       }
-    setSuccess(false);
+      setSuccess(false);
     }
+
     return(<>
     <Form 
         schema={contactSchema}
@@ -145,14 +158,14 @@ export const ContactForm= () => {
         errorMessages={{
           required: () => formData.defaultMessage,
         }}
-        className="comp-height large"
+        className="large"
         >
-        <FieldError name="*">
+        {atLeastOneError ? <FieldError name="*">
 					<Alert color="danger">
-						Errors were found in the form. Please fill out all the required fields.
+						Errors were found in the form. Please Correct fields.
 					</Alert>
-				</FieldError>
-        <FormGroup className={visible.get('e0'=== true) ? "row showed" : "row disabled"}>
+				</FieldError> : <> </>}
+        <FormGroup className={visible.get('e0') ? "showed my-modulable-row" : "disabled my-modulable-row"}>
 				<Label className="col-md-4" htmlFor="client-minCommentCustomMessage">minimum comment error message</Label>
 				<Col md="6">
 					<Field
@@ -164,7 +177,7 @@ export const ContactForm= () => {
 					/>
 					</Col>
 				</FormGroup>
-        <FormGroup className={visible.get('e1'=== true) ? "row showed" : "row disabled"}>
+        <FormGroup className={visible.get('e1') ? "my-modulable-row showed" : "my-modulable-row disabled"}>
 					<Label className="col-md-4" htmlFor="client-maxCommentCustomMessage">maximum comment error message</Label>
 					<Col md="6">
 						<Field
@@ -176,7 +189,7 @@ export const ContactForm= () => {
 						/>
 					</Col>
 				</FormGroup>
-        <FormGroup className={visible.get('e2'=== true) ? "row showed" : "row disabled"}>
+        <FormGroup className={visible.get('e2') ? "my-modulable-row showed" : "my-modulable-row disabled"}>
 					<Label className="col-md-4" htmlFor="client-defaultMessage">required message error</Label>
 					<Col md="6">
 						<Field
@@ -191,7 +204,7 @@ export const ContactForm= () => {
 					</Col>
 				</FormGroup>
         <hr />
-        <FormGroup className="row mb-5">
+        <FormGroup className="myrow mb-5">
 					<Label className="col-md-4" htmlFor="client-nom">Nom :</Label>
 					<Col md="6">
 						<Field
@@ -204,7 +217,7 @@ export const ContactForm= () => {
             <FieldError name="nom" />
 					</Col>
 				</FormGroup>
-        <FormGroup className="row mb-5">
+        <FormGroup className="myrow mb-5">
 					<Label className="col-md-4" htmlFor="client-prenom">Prénom :</Label>
 					<Col md="6">
 						<Field
@@ -217,7 +230,7 @@ export const ContactForm= () => {
             <FieldError name="prenom" />
 					</Col>
 				</FormGroup>
-        <FormGroup className="row mb-5">
+        <FormGroup className="myrow mb-5 mail-form-group">
 					<Label className="col-md-4" htmlFor="client-mail">E-Mail :</Label>
 					<Col md="6">
 						<Field
@@ -230,8 +243,8 @@ export const ContactForm= () => {
             <FieldError name="mail" />
 					</Col>
 				</FormGroup>
-        <Label className="col-md-4" htmlFor="client-sujet">Sujet :</Label>
-        <FormGroup className="row mt-5 large">
+        <Label className="col-md-4 sujet-label" htmlFor="client-sujet">Sujet :</Label>
+        <FormGroup className="myrow mt-5 large">
 					<Col md="6">
 						<Field
 							component={Input}
@@ -245,13 +258,13 @@ export const ContactForm= () => {
             <FieldError name="sujet" />
           </Col>
         </FormGroup>
-        <Label className="col-md-4" htmlFor="client-CommentCustom">Commentaire :</Label>
-				<FormGroup className="row mt-5">
+        <Label className="col-md-4 comment-label" htmlFor="client-commentCustom">Commentaire :</Label>
+				<FormGroup className="myrow mt-5">
 					<Col md="6">
 						<Field
 							component={Input}
-							id="client-CommentCustom"
-							name="CommentCustom"
+							id="client-commentCustom"
+							name="commentCustom"
 							type="textarea"
               className="form-control comment-field"
 							value={formData.comment}
@@ -263,7 +276,7 @@ export const ContactForm= () => {
 								minimum: () => formData.minCommentCustomMessage,
 								maximum: () => formData.maxCommentCustomMessage,
 							}}
-							name="CommentCustom"
+							name="commentCustom"
 						/>
 					</Col>
         </FormGroup>
