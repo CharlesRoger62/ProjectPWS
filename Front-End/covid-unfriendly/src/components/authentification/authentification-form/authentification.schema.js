@@ -1,8 +1,8 @@
-const AuthentificationSchema = {
+export const AuthentificationSchema = {
 	type: 'object',
 	properties: {
-		login: { type: 'string', format: 'text', maxLength: 30 },
-        password: { type: 'string', format: 'password', maxLength: 30}
+		login: { type: 'string', maxLength: 30 },
+        password: { type: 'string', maxLength: 30}
 	},
 	required: [
 		'login',

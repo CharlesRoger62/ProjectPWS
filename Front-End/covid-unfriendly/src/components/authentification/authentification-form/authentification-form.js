@@ -2,8 +2,9 @@ import { Field, FieldError, Form } from 'react-jsonschema-form-validation';
 import { useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import {AuthentificationSchema} from './authentification.schema';
-import { getAuthentification } from '../authentification';
+import { Authentification } from '../authentification';
 import { Button } from 'react-bootstrap';
+import { FormatIndentDecrease } from '@material-ui/icons';
 
 export const AuthentificationForm = (props) => {
     let location = useLocation();
@@ -16,7 +17,12 @@ export const AuthentificationForm = (props) => {
 	};
 
 	const handleSubmit = () => {
-		setSuccess(true);
+		if(Authentification({username: formData.login , password :formData.password})){
+			setSuccess(true);
+		}
+		else {
+			setSuccess(false);
+		}
 	};
         return (
         <Form 

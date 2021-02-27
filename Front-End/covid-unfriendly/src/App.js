@@ -7,6 +7,7 @@ import { GlobalStyles } from './global';
 import Map from './components/state-vis/Map';
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
+import AuthentificationButton from './components/authentification/authentification-button';
 import {
   BrowserRouter as Router,
   Switch,
@@ -40,6 +41,7 @@ function App() {
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
+          <AuthentificationButton />
             <Switch>
             <Route exact path="/">
               <Map/>
