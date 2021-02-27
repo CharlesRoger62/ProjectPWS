@@ -17,6 +17,7 @@ import {
 import {AuthContext} from './context/AuthContext/auth-context';
 import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
 import {ContactForm} from './components/contact-form/contact-form';
+import { AuthentificationButton } from './components/authentification/authentification-button';
 //import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
@@ -43,6 +44,7 @@ function App() {
         <div id="map">
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
+          <AuthentificationButton />
           <Router>
             <Switch>
             <Route exact path="/">
