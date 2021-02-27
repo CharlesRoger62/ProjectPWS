@@ -19,13 +19,13 @@ export const RowData = (props) => {
     else
     return(
         <>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
         </>
     );
 }
