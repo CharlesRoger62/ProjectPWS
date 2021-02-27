@@ -9,7 +9,7 @@ export const ChartRegions = () => {
     const [selected, setSelect] = useState(selectData[1]);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const url = 'http://localhost:9428/api/regions/classe0';
+    const url = 'http://localhost:9428/api/serviceregions/classe0';
 
     const fetchData = async () => {
         const response = await fetch(url);

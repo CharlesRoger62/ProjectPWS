@@ -21,11 +21,11 @@ import {AuthContext} from './context/AuthContext/auth-context';
 import {ContactForm} from './components/contact-form/contact-form';
 import { Authentification } from './components/authentification/authentification';
 //import {ContactForm} from './components/contact-form/contact-form';
-require('./lib/libs');
 import {BarPlot} from "./components/barplot/barplot";
 import {ChartRegions} from "./components/barplot/ChartRegions";
 import {HeaderNav} from "./components/header/header";
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
+require('./lib/libs');
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
