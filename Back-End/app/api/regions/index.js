@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { Region } = require('../../models');
+const RegionController = require('../../controllers/Region.controller.js');
 const region_controller = require('../../controllers/Region.controller');
 
 const router = new Router();
@@ -13,6 +14,8 @@ router.get('/', (req, res) => {
       console.log('error: ', error);
     });
 });
+
+router.get('/classe0', RegionController.findAllByClass0);
 
 router.get('/findById/:id', (req, res) => {
   Region.findById(req.params.id)

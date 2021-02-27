@@ -19,6 +19,9 @@ import {AuthentificationForm} from './components/authentification/authentificati
 import {ContactForm} from './components/contact-form/contact-form';
 //import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
+import {BarPlot} from "./components/barplot/barplot";
+import {ChartRegions} from "./components/barplot/ChartRegions";
+import {HeaderNav} from "./components/header/header";
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
 
 function App() {
@@ -39,16 +42,17 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <div>
+        <HeaderNav/>
         <GlobalStyles />
         <div id="map">
-          <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
             <Switch>
             <Route exact path="/">
               <Map localisation = {localisation}/>
+              <ChartRegions/>
               <Location onChange={changeLocation}/>
-            </Route>
+                          </Route>
             <Route exact path="/regions">
               <Map localisation = {localisation}/>
               <Location onChange={changeLocation}/>
