@@ -8,7 +8,8 @@ import Map from './components/state-vis/Map';
 import Location from './components/location/Location'
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
-import AuthentificationButton from './components/authentification/authentification-button';
+import AuthentificationButton  from './components/authentification/authentification-button';
+import {AuthentificationForm}  from './components/authentification/authentification-form/authentification-form';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,7 +19,7 @@ import {
 import {AuthContext} from './context/AuthContext/auth-context';
 //import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
 import {ContactForm} from './components/contact-form/contact-form';
-import { AuthentificationButton } from './components/authentification/authentification-button';
+import { Authentification } from './components/authentification/authentification';
 //import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
 //import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
@@ -45,7 +46,6 @@ function App() {
         <div id="map">
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
-          <AuthentificationButton />
           <Router>
           <AuthentificationButton />
             <Switch>
@@ -64,7 +64,9 @@ function App() {
             <Route exact path="/contact">
               <ContactForm />
             </Route>
-            
+            <Route exact path="/login">
+              <AuthentificationForm />
+            </Route>
             </AuthContext.Provider>
             </Switch>
           </Router>
