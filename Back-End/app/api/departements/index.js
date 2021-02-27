@@ -6,7 +6,7 @@ const router = new Router();
 
 router.get('/departements/', departement_controller.findAll);
 
-router.get('/departements/bylib/departement/:departement_libelle', departement_controller.findAllWithLabel);
+router.get('/departement/bylib/:departement_libelle', departement_controller.findAllWithLabel);
 
 router.get('/departement/bynum/:departementNum', departement_controller.findAllWithId);
 
