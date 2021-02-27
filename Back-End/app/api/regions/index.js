@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { Region } = require('../../models');
-
+const region_controller = require('../../controllers/Region.controller');
 const router = new Router();
 
 router.get('/', (req, res) => {
@@ -49,6 +49,12 @@ router.post('/', async (req, res) => {
     }
   }
 });
+
+router.get('/covidData', region_controller.findCovidData);
+
+router.get('/region/lastdata/:region_num', region_controller.findLastData)
+
+router.get('/region/bynum/:region_num', region_controller.findAllByRegionNum);
 
 
 module.exports = router;

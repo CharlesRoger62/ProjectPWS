@@ -3,7 +3,7 @@ const { Jour } = require('../../models');
 
 const router = new Router();
 
-//retourne toutes les donnees
+// retourne toutes les donnees
 router.get('/', (req, res) => {
   Jour.find({})
     .then((data) => {
@@ -14,3 +14,4 @@ router.get('/', (req, res) => {
     });
 });
 
+module.exports = router;
