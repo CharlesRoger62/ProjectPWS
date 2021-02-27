@@ -6,7 +6,7 @@ export const RowData = (props) => {
     if (props.value!==undefined){
         return (
             <>
-                <td>{props.value.date}</td>
+                <td>{props.value.jour}</td>
                 <td>{props.value.nbtest_positif}</td>
                 <td>{props.value.nbtest}</td>
                 <td>tranche d'age ...</td>
@@ -19,13 +19,13 @@ export const RowData = (props) => {
     else
     return(
         <>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
-            <td>d</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
+            <td>Please Wait</td>
         </>
     );
 }

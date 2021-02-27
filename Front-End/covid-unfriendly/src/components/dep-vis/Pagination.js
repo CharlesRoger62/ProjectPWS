@@ -16,10 +16,6 @@ export const Pagination = (props) => {
         gotoPage(1);
       });
 
-    /**
-     * Helper method for creating a range of numbers
-     * range(1, 5) => [1, 2, 3, 4, 5]
-     */
     const range = (from, to, step = 1) => {
     let i = from;
     const range = [];

@@ -4,21 +4,28 @@ import {RowData} from "./row-data";
 import {WeeksSubHeader} from "./weeks-sub-header";
 
 export const Rows = (props) => {
-    /*
-            props.data.map((value,index) => {
-                        if(index%7===0){
-                            <WeeksSubHeader count={count} />
-                            count=count+1;
-                        }
-    */
+    const [semaineCount,setSemaineCount] = useState(1);
     if(props.data !== undefined){
         return( 
             <>
-                <tr>
-                    <RowData value={props.data}/>
-                </tr>
-            </>
-        );
+            {
+            props.data.map( (value,index) => {
+                let modulo = index % 7;
+                return(
+                <>
+                { modulo === 0 ?   
+                    <tr><WeeksSubHeader count={0} /></tr>
+                     : <> </> 
+                }
+                    <tr>
+                    <RowData value={value}/>
+                    </tr>
+                </>
+                ) 
+
+            })
+            }
+        </>)
     }
     else {
         return(
