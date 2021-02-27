@@ -7,6 +7,7 @@ import { GlobalStyles } from './global';
 import MapFrance from './components/state-vis/MapFrance';
 import data from "./d3js/region.json"
 import Toggle_button_theme from './components/Theme/Toggle_button_theme';
+import RateComponent from './components/rate_component/RateComponent'
 import { Tooltip } from "redux-tooltip";
 import {useState} from "react";
 import {
@@ -33,6 +34,7 @@ function App() {
         <div id="map">
           <h1 className="title">Bienvenue sur covid unfriendly</h1>
           <Toggle_button_theme theme={theme} toggleTheme={toggleTheme} />
+          <RateComponent incidenceRate={3} positivityRate={26} analyticCapacity={-3} />
           <Router>
             <Switch>
             <Route exact path="/">
