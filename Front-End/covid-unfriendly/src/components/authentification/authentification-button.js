@@ -1,16 +1,19 @@
-import { Button } from 'react-bootstrap'
-import { Authentification, GetAuthentificated, SetAuthentificated } from './authentification':
+import { Button } from 'react-bootstrap';
+import { useHistory, withRouter } from "react-router-dom";
+import { GetAuthentificated } from './authentification';
 
+const AuthentificationButton = () => {
+    var history = useHistory();
 
-export const AuthentificationButton = () => {
+    const handleOnClick = () => {
+        history.push({
+            pathname: '/login',
+            state: { referrer :'/'}
+        });
+    }
     return (
-        <Button onClick={() => {
-            <Redirect
-                to={{
-                    pathname: "/login",
-                    state: { referrer: "/auth" }
-                }}
-/>
-        }}>{GetAuthentificated() ? Deconnexion : Connexion}</Button>
+        <Button type='button' onClick={handleOnClick}>{GetAuthentificated() ? 'Deconnexion' : 'Connexion'}</Button>
     )
 }
+
+export default withRouter(AuthentificationButton);

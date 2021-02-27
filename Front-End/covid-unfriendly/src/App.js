@@ -8,6 +8,8 @@ import Map from './components/state-vis/Map';
 import Location from './components/location/Location'
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
+import AuthentificationButton  from './components/authentification/authentification-button';
+import {AuthentificationForm}  from './components/authentification/authentification-form/authentification-form';
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,8 +17,9 @@ import {
   Link
 } from "react-router-dom";
 import {AuthContext} from './context/AuthContext/auth-context';
-import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
+//import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
 import {ContactForm} from './components/contact-form/contact-form';
+import { Authentification } from './components/authentification/authentification';
 //import {ContactForm} from './components/contact-form/contact-form';
 require('./lib/libs');
 import {BarPlot} from "./components/barplot/barplot";
@@ -47,6 +50,7 @@ function App() {
         <div id="map">
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
+          <AuthentificationButton />
             <Switch>
             <Route exact path="/">
               <Map localisation = {localisation}/>
@@ -65,7 +69,7 @@ function App() {
               <ContactForm />
             </Route>
             <Route exact path="/login">
-                <AuthentificationForm />
+              <AuthentificationForm />
             </Route>
             </AuthContext.Provider>
             </Switch>
