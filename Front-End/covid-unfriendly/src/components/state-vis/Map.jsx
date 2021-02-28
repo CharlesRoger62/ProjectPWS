@@ -9,6 +9,8 @@ import {
    useLocation,
    useHistory
  } from "react-router-dom";
+import { Retour } from "../Retour";
+import { DisplayName } from "../display-name";
 
 function GeoChart({localisation}){
    
@@ -129,12 +131,14 @@ function GeoChart({localisation}){
 
    return (
       <Router>
+         <DisplayName />
          <div ref={wrapperRef} style={{marginBottom: "2rem"}}>
             <svg ref={svgRef}>
                <g></g>
             </svg>
             <div className="tooltip" style={styleTooltip.container}>{textNameTooltip}<br/>{textDataTooltip}</div>
          </div>
+         {location.pathname ==='/regions' ? <Retour name='régions' />  : <></>}
       </Router>
    )
 
