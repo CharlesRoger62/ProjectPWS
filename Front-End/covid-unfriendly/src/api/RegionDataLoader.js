@@ -21,6 +21,7 @@ export const RegionAllDataLoader = async (region_num) =>{
 
 export const RegionCovidDataLoader = async (date, region_num) =>{
     let data = {};
+    console.log(date);
     if(region_num === undefined){
         await axios.get(`http://localhost:9428/api/serviceregions/covidData/?date=${date}`)
         .then((res)=>{

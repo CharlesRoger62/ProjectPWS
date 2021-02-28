@@ -20,7 +20,7 @@ exports.findAll = (req, res) => {
   };
 
 // Find a single Jour with a date
-exports.findOne = (req, res) => {
+exports.findOne =  (req, res) => {
     const date = req.params.date;
   
     Jour.findOne({date:date})
@@ -50,3 +50,34 @@ exports.findAllForClasse = (req, res) => {
         });
       });
   };
+
+  /*exports.findCovidData = async (req,res) => {
+    const date = {date : -1}
+    const lastDate = (await (Jour.findOne().sort(date))).date;
+    console.log(lastDate)
+    const condition = {classe_age : 0, date: lastDate }
+    console.log(condition)
+    Jour.find(condition)
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
+  } */
+
+  exports.findCovidData = async (req,res) => {
+    try {
+      var date = req.query.date
+      const condition = {classe_age : 0, date: date }
+      Jour.find(condition)
+        .then((data) => {
+          res.json(data);
+        })
+        .catch((error) => {
+          console.log('error: ', error);
+        });
+    } catch(e) {
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+  }

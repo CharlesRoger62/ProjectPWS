@@ -8,6 +8,7 @@ import moment from 'moment';
 import {RegionCovidDataLoader} from '../../api/RegionDataLoader'
 import {useLocation} from "react-router-dom";
 import RegionEnum from '../../enum/RegionEnum';
+import {FranceCovidDataLoader} from '../../api/FranceDataLoader'
 
 
 
@@ -39,19 +40,20 @@ const RateComponent = () => {
       var data;
 
       if(location.pathname == "/"){
-        data = RegionCovidDataLoader(stringDate);
+        data = FranceCovidDataLoader(stringDate);
 
         data.then(
           v => {
-            if(v.data.tx_an == null) {
+            if(v[0].tx_an == null) {
+              console.log("here we go");
               let error = 'pas de donnée';
               setAnalytic(error);
               setIncidence(error);
               setPositivity(error);
             } else {
-              setAnalytic(v.data.tx_an);
-              setIncidence(v.data.tx_inc);
-              setPositivity(v.data.tx_pos*100);
+              setAnalytic(v[0].tx_an);
+              setIncidence(v[0].tx_inc);
+              setPositivity(v[0].tx_pos*100);
             }
         })
       } else {
@@ -79,27 +81,25 @@ const RateComponent = () => {
       var data;
 
       if(location.pathname == "/"){
-        data = RegionCovidDataLoader(stringDate);
+        data = FranceCovidDataLoader(stringDate);
         
         data.then(
           v => {
-            if(v.data.tx_an == null) {
+            if(v[0].tx_an == null) {
               let error = 'pas de donnée';
               setAnalytic(error);
               setIncidence(error);
               setPositivity(error);
             } else {
-              setAnalytic(v.data.tx_an);
-              setIncidence(v.data.tx_inc);
-              setPositivity(v.data.tx_pos*100);
+              setAnalytic(v[0].tx_an);
+              setIncidence(v[0].tx_inc);
+              setPositivity(v[0].tx_pos*100);
             }
         })
       } else {
 
         var regionName = location.state.regionName;
         let regionNum = RegionEnum[regionName];
-        console.log(stringDate);
-        console.log(regionNum);
         data = RegionCovidDataLoader(stringDate,regionNum);
 
         data.then(

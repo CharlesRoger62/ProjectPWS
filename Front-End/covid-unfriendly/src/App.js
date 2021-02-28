@@ -13,6 +13,7 @@ import 'moment-timezone';
 import {useState} from "react";
 import RateComponent from "./components/rate_component/RateComponent"
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab'
+import {FranceCovidDataLoader} from './api/FranceDataLoader'
 import {
   BrowserRouter as Router,
   Switch,
@@ -60,22 +61,11 @@ function App() {
 
 
       // Date que tu va récupérer du Datepicker 
-      //let date = "2021-02-10"
+      //let date = '2021-02-01'
 
       //console.warn("Taux nationaux")
       //var data = RegionCovidDataLoader(date);
-    
-      /*data.then(
-        v => {
-          setTx(v.data.tx_an);
-          setTinc(v.data.tx_inc);
-          setTpos(v.data.tx_pos);
-      
-      }) */
 
-      
-      //console.warn("Taux par région")
-      //RegionCovidDataLoader(date,RegionEnum[region]);
 
 
 
