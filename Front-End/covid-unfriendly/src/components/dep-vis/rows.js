@@ -11,7 +11,7 @@ export const Rows = (props) => {
                 return(
                 <>
                     <tr>
-                    <RowData value={value}/>
+                        <RowData value={value}/>
                     </tr>
                 </>
                 )
