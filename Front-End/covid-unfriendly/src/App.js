@@ -20,9 +20,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import {ContactForm} from './components/contact-form/contact-form';
+import { ContactForm } from './components/contact-form/contact-form';
 import { Authentification } from './components/authentification/authentification';
-
 import {BarPlot} from "./components/barplot/barplot";
 import {ChartRegions} from "./components/barplot/ChartRegions";
 import {HeaderNav} from "./components/header/header";
@@ -44,13 +43,13 @@ function App() {
 
 
   /**
-   * 
-   * 
-   * 
-   * 
-   * 
+   *
+   *
+   *
+   *
+   *
    */
-      
+
       //Region que tu va récupère comme ça
       // let location = useLocation();
       // let region = location.state.regionName
@@ -64,7 +63,7 @@ function App() {
       //DepartementAllDataLoader(RegionEnum[region])
 
 
-      // Date que tu va récupérer du Datepicker 
+      // Date que tu va récupérer du Datepicker
       //let date = '2021-02-01'
 
       //console.warn("Taux nationaux")
@@ -93,25 +92,38 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <div>
-        <HeaderNav/>
+    <ThemeProvider theme={themeMode} >
+      <>
+      <div style={{width:"100%"}}>
         <GlobalStyles />
-        <div id="map">
+        <HeaderNav className="header"/>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
             <Switch>
             <Route exact path="/state">
-              <Map localisation = {localisation}/>
-              <RateComponent></RateComponent>
-              <ChartRegions/>
-              <Location onChange={changeLocation}/>
-                          </Route>
+              <div className="div1">
+                <div className="divLeft">
+                  <Map localisation = {localisation}/>
+                  <Location onChange={changeLocation} />
+                </div>
+                <div className="divRight">
+                  <RateComponent />
+                  <ChartRegions/>
+                </div>
+              </div>
+            </Route>
             <Route exact path="/regions">
-              <Map localisation = {localisation}/>
-              <ZoomableLineChart></ZoomableLineChart>
-              <RateComponent></RateComponent>
-              <Location onChange={changeLocation}/>
+              <div className="div1">
+                <div className="divLeft">
+                  <Map localisation = {localisation}/>
+                </div>
+                <div className="divRight">
+                  <RateComponent/>
+                </div>
+              </div>
+
+
+
             </Route>
             <Route exact path="/departements">
               <DepartementDataTab />
@@ -123,9 +135,10 @@ function App() {
               <ContactForm />
             </Route>
             </Switch>
+            <link className='contact-form' to='/contact' />
           </Router>
-        </div>
       </div>
+      </>
     </ThemeProvider>
   );
 };

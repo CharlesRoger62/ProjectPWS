@@ -6,14 +6,14 @@ export const Authentification = (props) => {
     localStorage.setItem('user_pass', 'user');
     localStorage.setItem('admin_pass', 'admin');
 
-    if(props.username === localStorage.getItem('user_username')){
-        if(props.password === localStorage.getItem('user_pass')){
+    if(props.username.toUpperCase === localStorage.getItem('user_username').toUpperCase){
+        if(props.password.toUpperCase === localStorage.getItem('user_pass').toUpperCase){
             return true;
         }
     }
 
-    if(props.username ===localStorage.getItem('admin_username')){
-        if(props.username ===localStorage.getItem('admin_pass')){
+    if(props.username.toUpperCase ===localStorage.getItem('admin_username').toUpperCase){
+        if(props.username.toUpperCase ===localStorage.getItem('admin_pass').toUpperCase){
             return true;
         }
     }

@@ -25,7 +25,7 @@ export const ChartRegions = () => {
     }, []);
 
     return (
-        <div>
+        <div style={{paddingTop:"40px"}}>
             {loading && <Loader type="Bars" color="#00BFFF" height={40} width={40}/> }
             {!loading && <div>
                 <BarPlot

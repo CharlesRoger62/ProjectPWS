@@ -14,7 +14,7 @@ export const BarPlot = (props) => {
     const [opacity, setOpacity] = useState(0);
     const [top, setTop] = useState(-500);
     const [left, setLeft] = useState(-500);
-
+    const [render, setRender] = useState(false);
     const [textTooltip, setTextTooltip] = useState("");
     let styleTooltip = {
         container: {
@@ -33,7 +33,7 @@ export const BarPlot = (props) => {
             data.sort( (a,b) => {
                 return a[props.select] < b[props.select];
             })
-            // console.table(data);
+            console.table(data);
 
             // append the svg object to the body of the page
             svg.append("svg")
@@ -100,7 +100,7 @@ export const BarPlot = (props) => {
                     setOpacity(0.9);
                     setTextTooltip(region_name_by_number[d.target.__data__.region_num]);
                     setLeft(d.clientX);
-                    setTop(d.clientY + (height/2));
+                    setTop(d.clientY );
                 })
                 .on("mouseout", (d) => {
                     setOpacity(0);
@@ -125,7 +125,7 @@ export const BarPlot = (props) => {
                     setOpacity(0.9);
                     setTextTooltip(region_name_by_number[d.target.__data__.region_num]);
                     setLeft(d.clientX);
-                    setTop(d.clientY + (height/2));
+                    setTop(d.clientY );
                 })
                 .on("mouseout", (d) => {
                     setOpacity(0);
@@ -268,7 +268,7 @@ export const BarPlot = (props) => {
 
     return (
         <div>
-            <svg  ref={ref} />
+            <svg  ref={ref} style={{textAlign:"center",margin:"auto auto"}}/>
             <div className="tooltip" style={styleTooltip.container}>{textTooltip}</div>
         </div>
     );

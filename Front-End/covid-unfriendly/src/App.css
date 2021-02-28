@@ -1,11 +1,19 @@
 .App {
-  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+.header {
+  position: fixed;
+  top: 0;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -65,4 +73,25 @@ div.tooltip {
 
 .title{
   margin-top: 60px;
+}
+
+.contact-form{
+  position :fixed;
+  bottom : 0;
+}
+
+.div1 {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 40px 20px;
+}
+
+.divRight {
+  text-align: center;
+  margin: auto auto;
+}
+
+.divLeft {
+  text-align: center;
+  margin: auto auto;
 }

@@ -2,7 +2,7 @@ import React,{ useState, useRef } from 'react';
 import {TabHeader} from "./tab-header";
 import {DisplayName} from "../display-name";
 import {Rows} from "./rows";
-import {Retour} from "./Retour";
+import {Retour} from "../Retour";
 import PropTypes from 'prop-types';
 import './departement-data-tab.scss';
 import DepartementDataLoader from "../../api/DepartementDataLoader";
@@ -125,7 +125,7 @@ export const DepartementDataTab = (props) => {
                         <TabHeader onSort={handleSorting} sortBy={sortType}/>
                     </thead>
                     <tbody>
-                        <Rows data={parts.get(currentPart)} semaineCount={0}/>
+                        <Rows data={parts.get(currentPart)} semaineCount={currentPart}/>
                     </tbody>
                 </table>
                 <Pagination className="center">
