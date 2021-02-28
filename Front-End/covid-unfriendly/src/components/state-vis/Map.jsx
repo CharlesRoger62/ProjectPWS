@@ -36,14 +36,14 @@ function GeoChart({localisation}){
 
    let location = useLocation();   
    const regionFolder = require.context('../../d3js/RegionsMap',true); 
-   let data = location.pathname === '/' ? france : regionFolder(`./${location.state.regionName}.json`); 
+   let data = location.pathname === '/state' ? france : regionFolder(`./${location.state.regionName}.json`); 
    let covidData = null;
    let covidDataDictionnary = null;
 
    useEffect(() => {
       const svg = select(svgRef.current);
 
-      if(location.pathname === '/'){
+      if(location.pathname === '/state'){
          svg.selectAll("g").remove()
       }
 
@@ -58,8 +58,7 @@ function GeoChart({localisation}){
          .attr("class","region")
          .attr("d", feature => pathGenerator(feature))
          .on("click", function(d) {
-            
-            if(location.pathname === '/'){
+            if(location.pathname === '/state'){
                setOpacity(0);
                setTextNameTooltip("");
                setTextDataTooltip("");
@@ -81,7 +80,7 @@ function GeoChart({localisation}){
          })
          .on("mouseover", function(d) {
             let region_number = RegionEnum[d.target.__data__.properties.nom];
-            if( location.pathname === '/'){
+            if( location.pathname === '/state'){
                RegionLastDataLoader(region_number).then( res => {
                   covidData = res.data;
                   //covidDataDictionnary = Object.assign({}, ...covidData.map((x) => ({[x.region_num]: x})));
