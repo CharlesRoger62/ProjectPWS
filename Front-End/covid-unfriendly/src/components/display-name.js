@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from "react";
 import PropTypes from 'prop-types';
 
-export const DepartementName = (props) => {
+export const DisplayName = (props) => {
     return(
         <>
             <p>
@@ -12,10 +12,10 @@ export const DepartementName = (props) => {
     );
 };
 
-DepartementName.propTypes = {
+DisplayName.propTypes = {
     name: PropTypes.string,
 };
 
-DepartementName.defaultProps = {
+DisplayName.defaultProps = {
     name : ""
 };
