@@ -20,14 +20,17 @@ can you determine the R-value from the data?
 can you use past data to predict where we'll be in a week from now?
 etc. Up to your imagination...
 
-# Avec npm et Node :
+# Lancer l'application Avec npm et Node :
+depuis la racine du projet ...
 ## Front 
 cd Front-End
 cd covid-unfriendly
 npm install 
 npm start
 
-## back 
+## Back 
 cd Back-End
 npm install 
 npm start
+
+NB: rapport de Mekouar Ayoub dans le wiki
