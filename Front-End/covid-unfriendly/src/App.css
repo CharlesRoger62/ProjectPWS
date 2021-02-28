@@ -14,9 +14,6 @@
   pointer-events: none;
 }
 
-.button-location {
-  text-align: center;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -81,4 +78,14 @@ div.tooltip {
 .div1 {
   display: flex;
   justify-content: space-evenly;
+}
+
+.divRight {
+  text-align: center;
+  margin: auto auto;
+}
+
+.divLeft {
+  text-align: center;
+  margin: auto auto;
 }

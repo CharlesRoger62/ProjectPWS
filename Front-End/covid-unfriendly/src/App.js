@@ -102,19 +102,19 @@ function App() {
             <Switch>
             <Route exact path="/state">
               <div className="div1">
-                <div className="button-location">
+                <div className="divLeft">
                   <Map localisation = {localisation}/>
                   <Location onChange={changeLocation} />
                 </div>
-                <div>
-                  <RateComponent></RateComponent>
+                <div className="divRight">
+                  <RateComponent />
                   <ChartRegions/>
                 </div>
               </div>
             </Route>
             <Route exact path="/regions">
               <Map localisation = {localisation}/>
-              <RateComponent></RateComponent>
+              <RateComponent/>
               <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/departements">
