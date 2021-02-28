@@ -4,9 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import covidLogo from '../../assets/images/covid.png'
 import polytechLogo from '../../assets/images/polytech.png'
 import Spinner from 'react-bootstrap/Spinner'
-import ToggleButtonTheme from "../Theme/Toggle_button_theme";
-import {useDarkMode} from "../Theme/useDarkMode";
-import {darkTheme, lightTheme} from "../Theme/theme";
+import './header.css'
 
 export const HeaderNav =  () => {
 
@@ -26,24 +24,29 @@ export const HeaderNav =  () => {
     }, []);
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="header">
+            <img
+                className="img-left"
+                src={covidLogo}
+                width="60"
+                height="60"
+            />
+            <Navbar.Brand href="/state" className="header-title">
 
-            <Navbar.Brand href="">
-                <img
-                    src={covidLogo}
-                    width="60"
-                    height="60"
-                />
-                Bienvenue sur covid unfriendly
-                <img
-                    src={polytechLogo}
-                    width="120"
-                    height="50"
-                />
+                Bienvenue sur Covid Unfriendly
+                {"\n"}
                 {loading
-                    ?<Spinner animation="border" variant="danger" />
-                    :<p>{data.deces} décès pour {data.gueris } guéris ({data.date})</p> }
+                    ?<Spinner className= "data" animation="border" variant="danger" />
+                    :<p className= "data">{data.deces} décès pour {data.gueris} guéris ({data.date})</p> }
+
             </Navbar.Brand>
+            <img
+            className="img-right"
+            src={polytechLogo}
+            width="120"
+            height="50"
+            />
+
         </Navbar>
     );
 }

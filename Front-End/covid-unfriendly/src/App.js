@@ -50,14 +50,20 @@ function App() {
       <>
       <div style={{width:"100%"}}>
         <GlobalStyles />
-        <HeaderNav/>
+        <HeaderNav className="header"/>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
             <Switch>
             <Route exact path="/state">
-              <Map localisation = {localisation}/>
-              <ChartRegions/>
-              <Location onChange={changeLocation}/>
+              <div className="div1">
+                <div className="button-location">
+                  <Map localisation = {localisation}/>
+                  <Location onChange={changeLocation} />
+                </div>
+                <div>
+                  <ChartRegions/>
+                </div>
+              </div>
             </Route>
             <Route exact path="/regions">
               <Map localisation = {localisation}/>
