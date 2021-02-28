@@ -1,6 +1,6 @@
 import React,{ useState, useRef } from 'react';
 import {TabHeader} from "./tab-header";
-import {DepartementName} from "./departement-name";
+import {DisplayName} from "../display-name";
 import {Rows} from "./rows";
 import {Retour} from "./Retour";
 import PropTypes from 'prop-types';
@@ -72,12 +72,12 @@ export const DepartementDataTab = (props) => {
               if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
                 return 0;
               }
-          
+
               const varA = (typeof a[key] === 'string')
                 ? a[key].toUpperCase() : a[key];
               const varB = (typeof b[key] === 'string')
                 ? b[key].toUpperCase() : b[key];
-          
+
               let comparison = 0;
               if (varA > varB) {
                 comparison = 1;
@@ -104,9 +104,9 @@ export const DepartementDataTab = (props) => {
         else{
             SetForceRender(true);
         }
-        
+
     }
-    
+
     if(parts !== undefined) {
         let index_from_one = currentPart + 1;
         let range=[];
@@ -121,7 +121,7 @@ export const DepartementDataTab = (props) => {
         }
         return(
             <>
-                <DepartementName name={location.state.libelle} />
+                <DisplayName name={location.state.libelle} />
                 <table className="theme-light">
                     <thead>
                         <TabHeader onSort={handleSorting} sortBy={sortType}/>
