@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { string } from 'prop-types';
-import { Container, Row, Col } from "react-bootstrap";
+import {Container, Row, Col, Modal, Button} from "react-bootstrap";
 import Datepicker from 'react-date-picker/dist/entry.nostyle';
 import './DatePicker.css';
 import './Calendar.css';
@@ -20,10 +20,35 @@ const rateStyle = {
 
 const dateRow = {
   margin : 20,
-} 
+}
+
+function MyVerticallyCenteredModal(props) {
+    return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Explications des Taux
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <TexteExplicatif/>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+}
 
 
 const RateComponent = () => {
+    const [modalShow, setModalShow] = React.useState(false);
+
     const [date,onChange] = useState(new Date());
     const [incidenceR, setIncidence] = useState("chargement");
     const [positivityR, setPositivity] = useState("chargement");
@@ -37,7 +62,7 @@ const RateComponent = () => {
     const initData = () => {
       var stringDate = '2021-02-10';
       console.log(stringDate);
-      
+
       var data;
 
       if(location.pathname === "/state"){
@@ -71,7 +96,7 @@ const RateComponent = () => {
         })
 
 
-        
+
       }
       //var data = RegionCovidDataLoader(date);
     }
@@ -83,7 +108,7 @@ const RateComponent = () => {
 
       if(location.pathname == "/state"){
         data = FranceCovidDataLoader(stringDate);
-        
+
         data.then(
           v => {
             if(v[0].tx_an == null) {
@@ -110,14 +135,21 @@ const RateComponent = () => {
             setIncidence(v.data["0"].tx_inc);
             setPositivity(v.data["0"].tx_pos*100);
         })
-        
+
       }
-      
+
     };
 
     return (
       <Container style={rateStyle}>
-        <TexteExplicatif />
+          <Button variant="primary" onClick={() => setModalShow(true)}>
+              Texte explicatif
+          </Button>
+
+          <MyVerticallyCenteredModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+          />
           <Col>
             <Row className="show-grid">
               <h3 >Taux d'incidence :  {Math.round(incidenceR * 100) / 100} </h3>
@@ -131,11 +163,11 @@ const RateComponent = () => {
           </Col>
           <br/>
           <Row>
-            <h3 style={dateRow}>Date : </h3> 
+            <h3 style={dateRow}>Date : </h3>
             <Datepicker onChange={onDateChange} value={date} className='date-picker' />
           </Row>
       </Container>
     );
   };
-  
+
   export default RateComponent;
