@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { Jour } = require('../../models');
+const jour_controller = require('../../controllers/Jour.controller')
 
 const router = new Router();
 
@@ -12,5 +13,7 @@ router.get('/', (req, res) => {
       console.log('error: ', error);
     });
 });
+
+router.get('/covidData', jour_controller.findCovidData);
 
 module.exports = router;

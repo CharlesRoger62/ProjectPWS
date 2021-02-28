@@ -1,12 +1,12 @@
 /* eslint-disable linebreak-style */
-const express = require('express');
+const { Router } = require('express');
 const RegionRouter = require('./regions');
 const JourRouter = require('./jours');
 const SemaineRouter = require('./semaines');
 const DepartementRouter = require('./departements');
 const CSVParser = require('./CSV Parser');
 const protectedRoute = require('./Protected Route');
-
+var express = require('express');
 const router = express.Router();
 
 router.get('/status', (req, res) => res.status(200).json('server is runing well'));

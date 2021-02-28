@@ -9,6 +9,11 @@ import Location from './components/location/Location'
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
 import {AuthentificationForm}  from './components/authentification/authentification-form/authentification-form';
+import { Tooltip } from "redux-tooltip";
+import Moment from 'react-moment';
+import 'moment-timezone';
+import RateComponent from "./components/rate_component/RateComponent"
+import {FranceCovidDataLoader} from './api/FranceDataLoader'
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,7 +26,13 @@ import { Authentification } from './components/authentification/authentification
 import {BarPlot} from "./components/barplot/barplot";
 import {ChartRegions} from "./components/barplot/ChartRegions";
 import {HeaderNav} from "./components/header/header";
+
+import {RegionCovidDataLoader,RegionAllDataLoader} from './api/RegionDataLoader'
+import RegionEnum from './enum/RegionEnum'
+import {DepartementAllDataLoader} from './api/DepartementDataLoader'
+
 require('./lib/libs');
+
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
@@ -29,6 +40,41 @@ function App() {
   const [adminCon, setAdminCon] = useState(false);
   const [localisation, setLocalisation] = useState([0,0]);
   const [normalCon, setNormalCon] = useState(false);
+
+
+  /**
+   * 
+   * 
+   * 
+   * 
+   * 
+   */
+      
+      //Region que tu va récupère comme ça
+      // let location = useLocation();
+      // let region = location.state.regionName
+      //let region = "Occitanie"
+
+      //console.warn("Graphique région")
+      //RegionAllDataLoader(RegionEnum[region]);
+
+
+      //console.warn("Graphiques départements d'une certaine région")
+      //DepartementAllDataLoader(RegionEnum[region])
+
+
+      // Date que tu va récupérer du Datepicker 
+      //let date = '2021-02-01'
+
+      //console.warn("Taux nationaux")
+      //var data = RegionCovidDataLoader(date);
+
+
+
+
+
+
+
 
   if (!componentMounted) {
     return <div />
@@ -56,11 +102,13 @@ function App() {
             <Switch>
             <Route exact path="/state">
               <Map localisation = {localisation}/>
+              <RateComponent></RateComponent>
               <ChartRegions/>
               <Location onChange={changeLocation}/>
                           </Route>
             <Route exact path="/regions">
               <Map localisation = {localisation}/>
+              <RateComponent></RateComponent>
               <Location onChange={changeLocation}/>
             </Route>
             <Route exact path="/departements">

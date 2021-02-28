@@ -31,7 +31,6 @@ exports.findAllWithLabel = async (condition) => {
 exports.findLastDataWithLabel = async function (condition) {
     try {
         var departement = await Departement.findOne(condition);
-        console.log(departement)
         return departement;
     }
     catch (e) {
@@ -49,4 +48,3 @@ exports.findLastDate = async function (sort) {
         throw Error("Some error occurred while retrieving Last Date");
     }
 }
-

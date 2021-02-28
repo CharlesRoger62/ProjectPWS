@@ -54,6 +54,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/region/lastdata/:region_num', region_controller.findLastData);
+router.get('/covidData', region_controller.findCovidData);
+
+router.get('/region/lastdata/:region_num', region_controller.findLastData)
+
+router.get('/region/bynum/:region_num', region_controller.findAllByRegionNum);
+
 
 module.exports = router;
