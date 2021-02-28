@@ -12,7 +12,7 @@ export const RegionLastDataLoader = async (props) =>{
 
 export const RegionAllDataLoader = async (region_num) =>{
     let data = {};
-    await axios.get("http://localhost:9428/api/serviceregions/region/bynum/"+region_num)
+    await axios.get("http://localhost:9428/api/serviceregions/region/bynum/" + region_num)
     .then((res)=>{
         data=res.data;
     });

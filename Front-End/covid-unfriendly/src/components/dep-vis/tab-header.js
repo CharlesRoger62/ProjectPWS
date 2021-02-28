@@ -57,7 +57,6 @@ export const TabHeader = (props) => {
     }
     if(sortBy !== undefined){
         return(
-            
             <tr>
                 <th onClick={() => handleOnClick('Jour', sortBy.get(0))}>Jour {sortBy.get(0) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
                 <th onClick={() => handleOnClick('Cas positifs', sortBy.get(1))}>Cas positifs {sortBy.get(1) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
