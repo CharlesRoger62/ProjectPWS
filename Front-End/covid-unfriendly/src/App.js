@@ -29,6 +29,7 @@ import {HeaderNav} from "./components/header/header";
 import {RegionCovidDataLoader,RegionAllDataLoader} from './api/RegionDataLoader'
 import RegionEnum from './enum/RegionEnum'
 import {DepartementAllDataLoader} from './api/DepartementDataLoader'
+import ZoomableLineChart from './components/case_chart/case_chart'
 
 require('./lib/libs');
 

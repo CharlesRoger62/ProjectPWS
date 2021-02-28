@@ -61,7 +61,6 @@ const RateComponent = () => {
 
     const initData = () => {
       var stringDate = '2021-02-10';
-      console.log(stringDate);
 
       var data;
 

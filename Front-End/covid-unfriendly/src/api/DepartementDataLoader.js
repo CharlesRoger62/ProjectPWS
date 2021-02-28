@@ -58,6 +58,7 @@ export const DepartementLastDataLoader = async (props) =>{
 
 
 export const DepartementAllDataLoader = async (region_num) =>{
+  console.log(region_num);
   if(region_num !== undefined){
       let data = {};
       await axios.get("http://localhost:9428/api/servicedepartements/departements/allDataByRegion/" + region_num)
