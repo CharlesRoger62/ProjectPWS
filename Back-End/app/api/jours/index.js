@@ -14,6 +14,6 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/covidData', jour_controller.findCovidData);
+router.get('/covidData/', jour_controller.findCovidData);
 
 module.exports = router;
