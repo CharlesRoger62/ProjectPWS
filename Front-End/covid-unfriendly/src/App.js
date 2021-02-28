@@ -43,20 +43,23 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <div>
-        <HeaderNav/>
+    <ThemeProvider theme={themeMode} >
+      <>
+      <div style={{width:"100%"}}>
         <GlobalStyles />
-        <div id="map">
+        <HeaderNav/>
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
           <AuthentificationButton />
             <Switch>
+              <Route exact path="/login">
+                <AuthentificationForm />
+              </Route>
             <Route exact path="/">
               <Map localisation = {localisation}/>
               <ChartRegions/>
               <Location onChange={changeLocation}/>
-                          </Route>
+            </Route>
             <Route exact path="/regions">
               <Map localisation = {localisation}/>
               <Location onChange={changeLocation}/>
@@ -68,14 +71,11 @@ function App() {
             <Route exact path="/contact">
               <ContactForm />
             </Route>
-            <Route exact path="/login">
-              <AuthentificationForm />
-            </Route>
             </AuthContext.Provider>
             </Switch>
           </Router>
-        </div>
       </div>
+      </>
     </ThemeProvider>
   );
 };

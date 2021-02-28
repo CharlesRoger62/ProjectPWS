@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import covidLogo from '../../assets/images/covid.png'
 import polytechLogo from '../../assets/images/polytech.png'
 import Spinner from 'react-bootstrap/Spinner'
+import ToggleButtonTheme from "../Theme/Toggle_button_theme";
+import {useDarkMode} from "../Theme/useDarkMode";
+import {darkTheme, lightTheme} from "../Theme/theme";
 
 export const HeaderNav =  () => {
 
