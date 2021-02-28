@@ -112,9 +112,17 @@ function App() {
               </div>
             </Route>
             <Route exact path="/regions">
-              <Map localisation = {localisation}/>
-              <RateComponent/>
-              <Location onChange={changeLocation}/>
+              <div className="div1">
+                <div className="divLeft">
+                  <Map localisation = {localisation}/>
+                </div>
+                <div className="divRight">
+                  <RateComponent/>
+                </div>
+              </div>
+
+
+
             </Route>
             <Route exact path="/departements">
               <DepartementDataTab />
