@@ -28,7 +28,7 @@ exports.findAllWithLabel = async (req, res) => {
     var condition_lib= departement_libelle ? { 'departement_libelle' : departement_libelle } : {};
       try {
         var departements = await DepartementService.findAllWithLabel(condition_lib);
-        return res.status(200).json({ status: 200, data: departements, message: "Succesfully departements Retrieved" });
+        return res.status(200).json({ status: 200, data_tab: departements, message: "Succesfully departements Retrieved" });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
     }
