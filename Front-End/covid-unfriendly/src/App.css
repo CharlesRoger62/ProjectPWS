@@ -66,3 +66,8 @@ div.tooltip {
 .title{
   margin-top: 60px;
 }
+
+.contact-form{
+  position :fixed;
+  bottom : 0;
+}

@@ -20,9 +20,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import {ContactForm} from './components/contact-form/contact-form';
+import { ContactForm } from './components/contact-form/contact-form';
 import { Authentification } from './components/authentification/authentification';
-
 import {BarPlot} from "./components/barplot/barplot";
 import {ChartRegions} from "./components/barplot/ChartRegions";
 import {HeaderNav} from "./components/header/header";
@@ -94,7 +93,7 @@ function App() {
   return (
     <ThemeProvider theme={themeMode}>
       <div>
-        <HeaderNav/>
+        <HeaderNav />
         <GlobalStyles />
         <div id="map">
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
@@ -121,7 +120,9 @@ function App() {
               <ContactForm />
             </Route>
             </Switch>
+            <link className='contact-form' to='/contact' /> 
           </Router>
+          
         </div>
       </div>
     </ThemeProvider>
