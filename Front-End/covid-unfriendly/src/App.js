@@ -14,24 +14,45 @@ import {
   Route,
   Link
 } from "react-router-dom";
+<<<<<<< Updated upstream
 import {AuthContext} from './context/AuthContext/auth-context';
 import {AuthentificationForm} from './components/authentification/authentification-form/authentification-form';
 //import {ContactForm} from './components/contact-form/contact-form';
+=======
+import { AuthContextForMail } from './context/AuthContext/auth-context-for-mail';
+import {ContactForm} from './components/contact-form/contact-form';
+import { AuthContextForTab } from './context/AuthContext/auth-context-for-tab';
+import { Authentification } from './components/authentification/authentification';
+>>>>>>> Stashed changes
 require('./lib/libs');
-//import {DepartementDataTab} from "./components/dep-vis/departement-data-tab";
 
 function App() {
   const [theme, toggleTheme, componentMounted] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
-  const AuthContext = React.createContext("admin");
   const [adminCon, setAdminCon] = useState(false);
+<<<<<<< Updated upstream
+=======
+  const [localisation, setLocalisation] = useState([0,0]);
+  const [normalCon, setNormalCon] = useState(false);
+>>>>>>> Stashed changes
 
   if (!componentMounted) {
     return <div />
   };
 
+<<<<<<< Updated upstream
   //Faire les Link avec des routes rest exemple : /regions#Ile de France ou /departements#Ain grace à un map sur les region puis departements
   //<Link to={"/regions"}>Regions</Link>
+=======
+  const changeAuth = () => {
+    if(normalCon === false) setNormalCon(true);
+    else setNormalCon(false);
+  }
+
+  const changeLocation = (coordinates) => {
+    setLocalisation(coordinates);
+  }
+>>>>>>> Stashed changes
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -49,14 +70,27 @@ function App() {
             <Route exact path="/regions">
               <Map/>
             </Route>
+<<<<<<< Updated upstream
             <Route exact path="/departements">
               <DepartementDataTab libelle={"Ain"}/>
             </Route>
             <AuthContext.Provider value={adminCon ? 'admin' : ''} >
+=======
+            <AuthContextForTab.Provider value={{auth: normalCon, changeAuth: changeAuth}} >
+              <Route exact path="/departements">
+                <DepartementDataTab />
+              </Route>
+            </AuthContextForTab.Provider>
+>>>>>>> Stashed changes
             <Route exact path="/login">
               <AuthentificationForm />
             </Route>
-            </AuthContext.Provider>
+            <AuthContextForMail.Provider value={adminCon ? 'admin' : ''} >
+              <Route exact path="/contact">
+                <ContactForm />
+              </Route>
+            </AuthContextForMail.Provider>
+            
             </Switch>
           </Router>
         </div>

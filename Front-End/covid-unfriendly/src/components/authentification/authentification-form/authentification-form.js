@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {AuthentificationSchema} from './authentification.schema';
 import { Authentification } from '../authentification';
 import { Alert, Button } from 'react-bootstrap';
+import { AuthContextForTab } from '../../../context/AuthContext/auth-context-for-tab';
 
 export const AuthentificationForm = (props) => {
     let location = useLocation();
@@ -31,6 +32,14 @@ export const AuthentificationForm = (props) => {
 		}
 		setFirst(false);
 	};
+		if(success === true ){
+			return <AuthContextForTab.Consumer>
+      		{({auth, changeAuth}) =>{
+				changeAuth(true);
+			  }
+			}
+    		</AuthContextForTab.Consumer>
+		}
         return (
         <Form 
         data={formData}
@@ -55,6 +64,7 @@ export const AuthentificationForm = (props) => {
 				/>
 				<FieldError name="password" />
 			</div>
+			
 			<Button onClick={handleSubmit}>Se connecter</Button>
         </Form>
         )
