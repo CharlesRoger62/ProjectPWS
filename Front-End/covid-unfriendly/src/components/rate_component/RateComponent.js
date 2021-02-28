@@ -9,6 +9,7 @@ import {RegionCovidDataLoader} from '../../api/RegionDataLoader'
 import {useLocation} from "react-router-dom";
 import RegionEnum from '../../enum/RegionEnum';
 import {FranceCovidDataLoader} from '../../api/FranceDataLoader'
+import { TexteExplicatif } from '../texte-explicatif';
 
 
 
@@ -39,13 +40,13 @@ const RateComponent = () => {
       
       var data;
 
-      if(location.pathname == "/state"){
+      if(location.pathname === "/state"){
         data = FranceCovidDataLoader(stringDate);
+        console.log(data);
 
         data.then(
           v => {
             if(v[0].tx_an == null) {
-              console.log("here we go");
               let error = 'pas de donnée';
               setAnalytic(error);
               setIncidence(error);
@@ -116,6 +117,7 @@ const RateComponent = () => {
 
     return (
       <Container style={rateStyle}>
+        <TexteExplicatif />
           <Col>
             <Row className="show-grid">
               <h3 >Taux d'incidence :  {Math.round(incidenceR * 100) / 100} </h3>

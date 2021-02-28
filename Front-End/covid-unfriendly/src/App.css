@@ -75,6 +75,11 @@ div.tooltip {
   margin-top: 60px;
 }
 
+.contact-form{
+  position :fixed;
+  bottom : 0;
+}
+
 .div1 {
   display: flex;
   justify-content: space-evenly;

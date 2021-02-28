@@ -10,7 +10,7 @@ export const AuthentificationForm = (props) => {
 	let history = useHistory();
     const [formData, setFormData] = useState({ email: '' });
 	const [success, setSuccess] = useState(false);
-	const [first,setFirst] =useState(true);
+	const [first, setFirst] =useState(true);
 
     const handleChange = (newData) => {
 		setFormData(newData);

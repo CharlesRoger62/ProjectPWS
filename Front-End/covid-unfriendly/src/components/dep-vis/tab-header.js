@@ -30,23 +30,18 @@ export const TabHeader = (props) => {
             changingKey='nbtest';
         }
 
-        if(value === "Tranche d'age"){
-            index=3;
-            changingKey="Tranche d'age";
-        }
-
         if(value === 'Taux de positivité'){
-            index=4;
+            index=3;
             changingKey='tx_pos';
         }
 
         if(value === "Taux d'incidence"){
-            index=5;
+            index=4;
             changingKey="tx_inc";
         }
 
         if(value === 'Capacité analytique'){
-            index=6;
+            index=5;
             changingKey='tx_an';
         }
         if(newMap.get(index)==='asc')
@@ -57,15 +52,13 @@ export const TabHeader = (props) => {
     }
     if(sortBy !== undefined){
         return(
-            
             <tr>
                 <th onClick={() => handleOnClick('Jour', sortBy.get(0))}>Jour {sortBy.get(0) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
                 <th onClick={() => handleOnClick('Cas positifs', sortBy.get(1))}>Cas positifs {sortBy.get(1) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
                 <th onClick={() => handleOnClick('Cas au total', sortBy.get(2))}>Cas au total {sortBy.get(2) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
-                <th onClick={() => handleOnClick("Tranche d'age", sortBy.get(3))}>Tranche d'age {sortBy.get(3) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
-                <th onClick={() => handleOnClick('Taux de positivité', sortBy.get(4))}>Taux de positivité {sortBy.get(4) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
-                <th onClick={() => handleOnClick("Taux d'incidence", sortBy.get(5))}>Taux d'incidence {sortBy.get(5) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
-                <th onClick={() => handleOnClick('Capacité analytique', sortBy.get(6))}>Capacité analytique {sortBy.get(6) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
+                <th onClick={() => handleOnClick('Taux de positivité', sortBy.get(3))}>Taux de positivité {sortBy.get(4) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
+                <th onClick={() => handleOnClick("Taux d'incidence", sortBy.get(4))}>Taux d'incidence {sortBy.get(5) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
+                <th onClick={() => handleOnClick('Capacité analytique', sortBy.get(5))}>Capacité analytique {sortBy.get(6) ==='asc' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</th>
             </tr>
         )
     }

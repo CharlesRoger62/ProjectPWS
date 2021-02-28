@@ -9,7 +9,6 @@ export const RowData = (props) => {
                 <td>{props.value.jour}</td>
                 <td>{props.value.nbtest_positif}</td>
                 <td>{props.value.nbtest}</td>
-                <td>tranche d'age ...</td>
                 <td>{props.value.tx_pos}</td>
                 <td>{props.value.tx_inc}</td>
                 <td>{props.value.tx_an}</td>
