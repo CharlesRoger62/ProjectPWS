@@ -102,7 +102,6 @@ export const DepartementDataTab = (props) => {
         else{
             SetForceRender(true);
         }
-
     }
 
     if(parts !== undefined) {

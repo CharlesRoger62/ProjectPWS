@@ -9,12 +9,12 @@ export const TabHeader = (props) => {
         setSortBy(props.sortBy);
     }, [props.sortBy])
     
-
     const handleOnClick = (value, type) => {
-        let twoValueArray=[];
+        let twoValueArray = [];
         let newMap = sortBy;
-        let index=0;
+        let index = 0;
         let changingKey='';
+
         if(value === 'Jour'){
             index=0;
             changingKey='jour';
@@ -44,6 +44,7 @@ export const TabHeader = (props) => {
             index=5;
             changingKey='tx_an';
         }
+
         if(newMap.get(index)==='asc')
         newMap.set(index,'desc');
         else newMap.set(index,'asc');
