@@ -1,20 +1,21 @@
 import React,{useEffect ,useState} from 'react';
 import {TabHeader} from "./tab-header";
-import {DepartementName} from "./departement-name";
+import {DisplayName} from "../display-name";
 import {Rows} from "./rows";
 import {Retour} from "./Retour";
 import PropTypes from 'prop-types';
 import './departement-data-tab.scss';
 import DepartementDataLoader from "../../api/DepartementDataLoader";
 import Pagination from 'react-bootstrap/Pagination';
-import PageItem from 'react-bootstrap/PageItem';
-const axios = require('axios');
+import { useLocation } from 'react-router-dom';
 
 
 export const DepartementDataTab = (props) => {
     var [data, setData] = useState([]);
     const [currentPart, setCurrentPart] = useState([]);
     var [parts,setParts] = useState([]);
+    let location=useLocation();
+
  /*
  let dataTab=[];
         if(props !== undefined && data !== []){
@@ -54,7 +55,7 @@ export const DepartementDataTab = (props) => {
     if(data !== undefined){
         return(
             <>
-                <DepartementName name={props.libelle} />
+                <DisplayName name={location.state.libelle} />
                 <table className="theme-light">
                     <thead>
                         <TabHeader />
