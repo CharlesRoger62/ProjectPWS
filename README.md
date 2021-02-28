@@ -19,3 +19,18 @@ a time-graph where the length of bar associated to a dept evolves over time, whe
 can you determine the R-value from the data?
 can you use past data to predict where we'll be in a week from now?
 etc. Up to your imagination...
+
+# Lancer l'application Avec npm et Node :
+depuis la racine du projet ...
+## Front 
+cd Front-End
+cd covid-unfriendly
+npm install 
+npm start
+
+## Back 
+cd Back-End
+npm install 
+npm start
+
+NB: rapport de Mekouar Ayoub dans le wiki
