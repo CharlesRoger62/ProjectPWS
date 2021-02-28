@@ -8,7 +8,6 @@ import Map from './components/state-vis/Map';
 import Location from './components/location/Location'
 import ToggleButtonTheme from './components/Theme/Toggle_button_theme';
 import {DepartementDataTab} from './components/dep-vis/departement-data-tab';
-import AuthentificationButton  from './components/authentification/authentification-button';
 import {AuthentificationForm}  from './components/authentification/authentification-form/authentification-form';
 import {
   BrowserRouter as Router,
@@ -16,9 +15,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { AuthContextForMail } from './context/AuthContext/auth-context-for-mail';
 import {ContactForm} from './components/contact-form/contact-form';
-import { AuthContextForTab } from './context/AuthContext/auth-context-for-tab';
 import { Authentification } from './components/authentification/authentification';
 
 import {BarPlot} from "./components/barplot/barplot";
@@ -56,9 +53,8 @@ function App() {
         <div id="map">
           <ToggleButtonTheme theme={theme} toggleTheme={toggleTheme} />
           <Router>
-          <AuthentificationButton />
             <Switch>
-            <Route exact path="/">
+            <Route exact path="/state">
               <Map localisation = {localisation}/>
               <ChartRegions/>
               <Location onChange={changeLocation}/>
@@ -67,20 +63,15 @@ function App() {
               <Map localisation = {localisation}/>
               <Location onChange={changeLocation}/>
             </Route>
-            <AuthContextForTab.Provider value={{auth: normalCon, changeAuth: changeAuth}} >
-              <Route exact path="/departements">
-                <DepartementDataTab />
-              </Route>
-            </AuthContextForTab.Provider>
-            <Route exact path="/login">
+            <Route exact path="/departements">
+              <DepartementDataTab />
+            </Route>
+            <Route exact path="/">
               <AuthentificationForm />
             </Route>
-            <AuthContextForMail.Provider value={adminCon ? 'admin' : ''} >
-              <Route exact path="/contact">
-                <ContactForm />
-              </Route>
-            </AuthContextForMail.Provider>
-
+            <Route exact path="/contact">
+              <ContactForm />
+            </Route>
             </Switch>
           </Router>
         </div>
