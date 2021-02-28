@@ -268,7 +268,7 @@ export const BarPlot = (props) => {
 
     return (
         <div>
-            <svg  ref={ref} />
+            <svg  ref={ref} style={{textAlign:"center",margin:"auto auto"}}/>
             <div className="tooltip" style={styleTooltip.container}>{textTooltip}</div>
         </div>
     );
